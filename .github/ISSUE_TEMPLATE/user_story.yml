@@ -1,0 +1,25 @@
+name: User Story
+description: As a <persona>, I want <capability> so that <value>
+title: "US<id>: <As a … I want … so that …>"
+labels: ["story","P1"]
+body:
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      placeholder: "As a <persona>, I want <capability> so that <value>."
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      placeholder: "- Given ... When ... Then ..."
+  - type: input
+    id: story_points
+    attributes:
+      label: Story Points
+      placeholder: "1|2|3|5|8"
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / Risks
+      placeholder: "Links to epics, other US, tech constraints"

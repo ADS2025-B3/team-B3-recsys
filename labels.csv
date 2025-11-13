@@ -1,0 +1,16 @@
+name,color
+epic,#5319e7
+story,#1d76db
+task,#d93f0b
+data,#006b75
+pipeline,#fbca04
+modeling,#c0e3ff
+serving,#b60205
+frontend,#bfdadc
+infra,#0e8a16
+blocked,#e11d21
+ready,#0e8a16
+needs-info,#5319e7
+P0,#b60205
+P1,#fbca04
+P2,#0e8a16

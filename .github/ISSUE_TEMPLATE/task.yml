@@ -1,0 +1,24 @@
+name: Task
+description: Smallest unit of work deliverable within a day
+title: "US<id> - <task title>"
+labels: ["task"]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+  - type: input
+    id: owner
+    attributes:
+      label: Assignee (GitHub handle)
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimate (hours)
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist
+      placeholder: "- [ ] tests
+- [ ] docs
+- [ ] CI passing"

@@ -1,0 +1,26 @@
+name: Epic
+description: Track a major capability spanning multiple sprints
+title: "E<id>: <Epic title>"
+labels: ["epic","P1"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      placeholder: "High-level objective and value"
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      placeholder: "In-scope / Out-of-scope"
+  - type: textarea
+    id: decomposition
+    attributes:
+      label: Related User Stories
+      placeholder: "List US links"
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: ["P0","P1","P2"]
+      default: 1
