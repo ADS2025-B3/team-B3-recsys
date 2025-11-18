@@ -7,12 +7,12 @@ services:
     ports:
       - "5500:5000"
     volumes:
-      - ./mlflow_server/mlflow.db:/mlflow/mlflow.db
-      - ./mlflow_server/mlruns:/mlflow/mlruns
+      - ./mlflow_server/mlruns:/mlflow/mlruns    # artifact storage
+      - ./mlflow_server/data:/mlflow/data        # SQLite DB folder
     command: >
       mlflow server
-      --backend-store-uri sqlite:///mlflow.db
-      --default-artifact-root /mlflow/mlruns
+      --backend-store-uri sqlite:////mlflow/data/mlflow.db
       --host 0.0.0.0
       --port 5000
+    user: root
 
