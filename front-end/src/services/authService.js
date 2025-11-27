@@ -47,7 +47,26 @@ export const getCurrentUser = async (token) => {
     }
 }
 
+/**
+ * Logout user
+ * @param {string} token - Authentication token
+ * @returns {Promise<void>}
+ */
+export const logout = async (token) => {
+    try {
+        await api.post('/auth/logout', {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    } catch (error) {
+        console.error('Error logging out:', error)
+        // No lanzamos error porque el logout local debe funcionar aunque falle el servidor
+    }
+}
+
 export default {
     login,
     getCurrentUser,
+    logout,
 }
