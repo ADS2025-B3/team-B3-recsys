@@ -30,8 +30,12 @@ function LoginPage() {
 
             setToken(response.token)
             setUser(response.user)
+            // redirect to previous page if any
+            if (history.length > 1)
+                history.back()
+            else
+                navigate('/')
 
-            navigate('/')
         } catch (err) {
             setError(err.message || 'Failed to login')
         } finally {

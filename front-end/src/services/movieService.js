@@ -19,6 +19,7 @@ export const searchMovies = async (query) => {
     try {
         const response = await api.get('/movies/search', {
             params: { q: query }
+
         })
         return response.data
     } catch (error) {

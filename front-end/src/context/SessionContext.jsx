@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { logout as logoutService, getCurrentUser } from '../services/authService'
 
 const SessionContext = createContext(null)
@@ -10,7 +10,6 @@ export const SessionProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
         const initSession = async () => {
@@ -32,7 +31,6 @@ export const SessionProvider = ({ children }) => {
             }
             else {
                 setLoading(false)
-                navigate('/login', { replace: true })
             }
         }
         initSession()
@@ -46,13 +44,6 @@ export const SessionProvider = ({ children }) => {
         }
     }, [token])
 
-    // Redirect to login if not authenticated
-    useEffect(() => {
-        if (!loading && !token && location.pathname !== '/') {
-            navigate('/', { replace: true })
-        }
-    }, [token, loading, location.pathname, navigate])
-
     const logout = async () => {
         try {
             if (token) {
@@ -61,7 +52,6 @@ export const SessionProvider = ({ children }) => {
         } finally {
             setToken(null)
             setUser(null)
-            navigate('/', { replace: true })
         }
     }
 
