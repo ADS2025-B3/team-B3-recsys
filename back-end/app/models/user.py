@@ -1,6 +1,5 @@
 """ User models """
-from typing import List, Optional
-from sqlmodel import Relationship, SQLModel, Field
+from sqlmodel import SQLModel, Field
 from enum import Enum
 from pydantic import EmailStr
 
@@ -32,21 +31,18 @@ class UserRegister(SQLModel):
     email: EmailStr = Field(max_length=255)
     password: str = Field(min_length=8, max_length=40)
     full_name: str | None = Field(default=None, max_length=255)
-    phone_number: str | None = Field(default=None, max_length=15)
 
 
 # Properties to receive via API on update, all are optional
 class UserUpdate(UserBase):
     email: EmailStr | None = None  # type: ignore
     full_name: str | None = None
-    phone_number: str | None = None
     password: str | None = None
 
 
 class UserUpdateMe(SQLModel):
     email: EmailStr | None = None
     full_name: str | None = None
-    phone_number: str | None = None
 
 class UpdatePassword(SQLModel):
     current_password: str
