@@ -1,16 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById, getMovieRecommendations } from '../services/movieService'
-import MovieList from '../components/MovieList'
+import { getMovieById, rateMovie } from '../services/movieService'
+import StarRating from '../components/StarRating'
 
 function MovieDetailsPage() {
     const { id } = useParams()
     const navigate = useNavigate()
     const [movie, setMovie] = useState(null)
-    const [recommendations, setRecommendations] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [loadingRecommendations, setLoadingRecommendations] = useState(false)
+
+    // Mock authentication state - replace with actual auth context later
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    // Rating state
+    const [userRating, setUserRating] = useState(0)
+    const [submittingRating, setSubmittingRating] = useState(false)
+    const [ratingSuccess, setRatingSuccess] = useState(false)
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -20,17 +26,6 @@ function MovieDetailsPage() {
             try {
                 const movieData = await getMovieById(id)
                 setMovie(movieData)
-
-                // Fetch recommendations
-                setLoadingRecommendations(true)
-                try {
-                    const recommendationsData = await getMovieRecommendations(id)
-                    setRecommendations(recommendationsData)
-                } catch (err) {
-                    console.error('Failed to load recommendations:', err)
-                } finally {
-                    setLoadingRecommendations(false)
-                }
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -40,6 +35,33 @@ function MovieDetailsPage() {
 
         fetchMovieDetails()
     }, [id])
+
+    const handleRatingChange = async (rating) => {
+        setUserRating(rating)
+        setSubmittingRating(true)
+        setRatingSuccess(false)
+
+        try {
+            await rateMovie(id, rating)
+            setRatingSuccess(true)
+            // Hide success message after 3 seconds
+            setTimeout(() => setRatingSuccess(false), 3000)
+        } catch (err) {
+            console.error('Failed to submit rating:', err)
+            // Even if it fails, we keep the rating displayed in the UI
+        } finally {
+            setSubmittingRating(false)
+        }
+    }
+
+    const toggleAuth = () => {
+        setIsAuthenticated(!isAuthenticated)
+        if (isAuthenticated) {
+            // Clear rating when logging out
+            setUserRating(0)
+            setRatingSuccess(false)
+        }
+    }
 
     if (loading) {
         return (
@@ -82,6 +104,19 @@ function MovieDetailsPage() {
 
     return (
         <div className="space-y-8">
+            {/* Mock Auth Toggle - For Development Only */}
+            <div className="flex justify-end">
+                <button
+                    onClick={toggleAuth}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${isAuthenticated
+                        ? 'bg-red-600 hover:bg-red-700 text-white'
+                        : 'bg-green-600 hover:bg-green-700 text-white'
+                        }`}
+                >
+                    {isAuthenticated ? '🔓 Mock Logout' : '🔒 Mock Login'}
+                </button>
+            </div>
+
             {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
@@ -193,6 +228,45 @@ function MovieDetailsPage() {
                             </div>
                         )}
 
+                        {/* Rating Section */}
+                        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3">
+                                Rate This Movie
+                            </h3>
+
+                            {!isAuthenticated && (
+                                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg">
+                                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                                        🔒 Please log in to rate this movie
+                                    </p>
+                                </div>
+                            )}
+
+                            <div className="flex items-center space-x-4">
+                                <StarRating
+                                    value={userRating}
+                                    onChange={handleRatingChange}
+                                    disabled={!isAuthenticated || submittingRating}
+                                />
+
+                                {submittingRating && (
+                                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600 mr-2"></div>
+                                        Submitting...
+                                    </div>
+                                )}
+
+                                {ratingSuccess && !submittingRating && (
+                                    <div className="flex items-center text-sm text-green-600 dark:text-green-400">
+                                        <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                        </svg>
+                                        Rating submitted!
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
                         {/* Additional Info */}
                         <div className="grid grid-cols-2 gap-4 text-sm">
                             {movie.runtime && (
@@ -227,20 +301,6 @@ function MovieDetailsPage() {
                     </div>
                 </div>
             </div>
-
-            {/* Recommendations */}
-            {(recommendations.length > 0 || loadingRecommendations) && (
-                <div className="mt-12">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                        You Might Also Like
-                    </h2>
-                    <MovieList
-                        movies={recommendations}
-                        loading={loadingRecommendations}
-                        error={null}
-                    />
-                </div>
-            )}
         </div>
     )
 }

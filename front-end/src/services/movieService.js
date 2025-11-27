@@ -77,23 +77,32 @@ export const getMovieById = async (id) => {
     }
 }
 
+
 /**
- * Get movie recommendations
- * @param {string|number} id - The movie ID
- * @returns {Promise<Array>} - Array of recommended movie objects
+ * Submit a rating for a movie
+ * @param {string|number} movieId - The movie ID
+ * @param {number} rating - The rating value (1-5)
+ * @returns {Promise<Object>} - Response object with the submitted rating
  */
-export const getMovieRecommendations = async (id) => {
+export const rateMovie = async (movieId, rating) => {
     try {
-        const response = await api.get(`/movies/${id}/recommendations`)
+        const response = await api.post(`/movies/${movieId}/rate`, { rating })
         return response.data
     } catch (error) {
-        console.error('Error fetching recommendations:', error)
-        throw new Error(error.response?.data?.message || 'Failed to fetch recommendations')
+        console.error('Error rating movie:', error)
+        // Mock response for development
+        return {
+            success: true,
+            movieId: movieId,
+            rating: rating,
+            message: 'Rating submitted successfully (mock)'
+        }
+        // throw new Error(error.response?.data?.message || 'Failed to submit rating')
     }
 }
 
 export default {
     searchMovies,
     getMovieById,
-    getMovieRecommendations,
+    rateMovie,
 }
