@@ -17,11 +17,22 @@ const api = axios.create({
  */
 export const login = async (username, password) => {
     try {
-        const response = await api.post('/auth/login', {
-            username,
-            password,
+        // OAuth2PasswordRequestForm requires form-data format
+        const formData = new URLSearchParams()
+        formData.append('username', username)
+        formData.append('password', password)
+
+        const response = await api.post('/auth/login', formData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         })
-        return response.data
+        const data = response.data.access_token
+        if (data) {
+            const user = await getCurrentUser(data)
+            return { access_token: data, user }
+        }
+        throw new Error('No access token received')
     } catch (error) {
         console.error('Error logging in:', error)
         throw new Error(error.response?.data?.message || 'Failed to login')
@@ -47,26 +58,7 @@ export const getCurrentUser = async (token) => {
     }
 }
 
-/**
- * Logout user
- * @param {string} token - Authentication token
- * @returns {Promise<void>}
- */
-export const logout = async (token) => {
-    try {
-        await api.post('/auth/logout', {}, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })
-    } catch (error) {
-        console.error('Error logging out:', error)
-        // No lanzamos error porque el logout local debe funcionar aunque falle el servidor
-    }
-}
-
 export default {
     login,
     getCurrentUser,
-    logout,
 }

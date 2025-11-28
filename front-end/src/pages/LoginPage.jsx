@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSession } from '../context/SessionContext'
 import { login as loginService } from '../services/authService'
 
@@ -11,15 +11,16 @@ function LoginPage() {
 
     const { setToken, setUser, token } = useSession()
     const navigate = useNavigate()
-
+    let [searchParams] = useSearchParams();
     useEffect(() => {
         if (loading) return
         if (token) {
-
             navigate('/')
         }
-    }, [token, navigate, loading])
-
+        return () => { }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading])
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
@@ -27,14 +28,19 @@ function LoginPage() {
 
         try {
             const response = await loginService(username, password)
-
-            setToken(response.token)
+            setToken(response.access_token)
             setUser(response.user)
             // redirect to previous page if any
-            if (history.length > 1)
-                history.back()
-            else
+                if (history.length > 1) {
+                const fromRoute = searchParams.get("fromRoute");
+                const base = window.location.origin;
+                if (fromRoute) {
+                    navigate(`${base}${fromRoute}`)
+                    return
+                }
+            } else {
                 navigate('/')
+            }
 
         } catch (err) {
             setError(err.message || 'Failed to login')
@@ -44,13 +50,13 @@ function LoginPage() {
     }
 
     return (
-        <div className="flex flex-1 min-h-full justify-center items-center ">
-            <div className="bg-white bg-opacity-10 backdrop-blur-lg shadow-xl p-8 rounded-lg shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-bold mb-6 text-center text-white">Login</h1>
+        <div className="flex items-center justify-center flex-1 min-h-full ">
+            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl bg-opacity-10 backdrop-blur-lg">
+                <h1 className="mb-6 text-2xl font-bold text-center text-white">Login</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-white mb-1">
+                        <label htmlFor="username" className="block mb-1 text-sm font-medium text-white">
                             Username
                         </label>
                         <input
@@ -65,7 +71,7 @@ function LoginPage() {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
+                        <label htmlFor="password" className="block mb-1 text-sm font-medium text-white">
                             Password
                         </label>
                         <input
@@ -80,7 +86,7 @@ function LoginPage() {
                     </div>
 
                     {error && (
-                        <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
+                        <div className="p-3 text-sm text-red-600 rounded-md bg-red-50">
                             {error}
                         </div>
                     )}
@@ -88,7 +94,7 @@ function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                        className="w-full py-2 text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
                     >
                         {loading ? 'Logging in...' : 'Login'}
                     </button>

@@ -83,18 +83,17 @@ export const getMovieById = async (id) => {
  * @param {string|number} id - The movie ID
  * @returns {Promise<Array>} - Array of recommended movie objects
  */
-export const getMovieRecommendations = async (id) => {
-    try {
-        const response = await api.get(`/movies/${id}/recommendations`)
-        return response.data
-    } catch (error) {
-        console.error('Error fetching recommendations:', error)
-        throw new Error(error.response?.data?.message || 'Failed to fetch recommendations')
-    }
-}
+// export const getMovieRecommendations = async (id) => {
+//     try {
+//         const response = await api.get(`/movies/${id}/recommendations`)
+//         return response.data
+//     } catch (error) {
+//         console.error('Error fetching recommendations:', error)
+//         throw new Error(error.response?.data?.message || 'Failed to fetch recommendations')
+//     }
+// }
 
 export default {
     searchMovies,
     getMovieById,
-    getMovieRecommendations,
 }

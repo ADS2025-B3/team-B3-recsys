@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { logout as logoutService, getCurrentUser } from '../services/authService'
+import { getCurrentUser } from '../services/authService'
 
 const SessionContext = createContext(null)
 
@@ -9,12 +8,10 @@ export const SessionProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const navigate = useNavigate()
-
     useEffect(() => {
         const initSession = async () => {
             const storedToken = localStorage.getItem('token')
-            if (storedToken) {
+            if (storedToken && !user) {
                 setToken(storedToken)
                 try {
                     const userData = await getCurrentUser(storedToken)
@@ -34,7 +31,8 @@ export const SessionProvider = ({ children }) => {
             }
         }
         initSession()
-    }, [navigate])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         if (token) {
@@ -45,14 +43,9 @@ export const SessionProvider = ({ children }) => {
     }, [token])
 
     const logout = async () => {
-        try {
-            if (token) {
-                await logoutService(token)
-            }
-        } finally {
-            setToken(null)
-            setUser(null)
-        }
+        localStorage.removeItem('token')
+        setToken(null)
+        setUser(null)
     }
 
     const value = {
@@ -69,7 +62,7 @@ export const SessionProvider = ({ children }) => {
         <SessionContext.Provider value={value}>
             {
                 loading ?
-                    <main className=' flex flex-1 min-h-full justify-center items-center text-white '>
+                    <main className='flex items-center justify-center flex-1 min-h-full text-white '>
                         Loading...
                     </main>
                     :
