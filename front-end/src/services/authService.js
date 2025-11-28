@@ -34,8 +34,8 @@ export const login = async (username, password) => {
         }
         throw new Error('No access token received')
     } catch (error) {
-        console.error('Error logging in:', error)
-        throw new Error(error.response?.data?.message || 'Failed to login')
+        console.error('Error logging in:', error.response || error)
+        throw new Error(error.response?.data?.detail || 'Failed to login')
     }
 }
 
@@ -53,8 +53,8 @@ export const getCurrentUser = async (token) => {
         })
         return response.data
     } catch (error) {
-        console.error('Error fetching user:', error)
-        throw new Error(error.response?.data?.message || 'Failed to fetch user')
+        console.error('Error fetching user:', error.response || error)
+        throw new Error(error.response?.data?.detail || 'Failed to fetch user')
     }
 }
 
