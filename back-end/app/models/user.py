@@ -1,7 +1,5 @@
 """ User models """
-from sqlmodel import SQLModel, Field
-from enum import Enum
-from pydantic import EmailStr
+from .deps import *
 
 class UserRole(str, Enum):
     analyst = "analyst"
