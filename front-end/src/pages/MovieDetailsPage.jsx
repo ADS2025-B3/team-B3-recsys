@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById, rateMovie } from '../services/movieService'
-import StarRating from '../components/StarRating'
+import { getMovieById } from '../services/movieService'
 
 function MovieDetailsPage() {
     const { id } = useParams()
@@ -9,14 +8,6 @@ function MovieDetailsPage() {
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-
-    // Mock authentication state - replace with actual auth context later
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-    // Rating state
-    const [userRating, setUserRating] = useState(0)
-    const [submittingRating, setSubmittingRating] = useState(false)
-    const [ratingSuccess, setRatingSuccess] = useState(false)
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -36,37 +27,10 @@ function MovieDetailsPage() {
         fetchMovieDetails()
     }, [id])
 
-    const handleRatingChange = async (rating) => {
-        setUserRating(rating)
-        setSubmittingRating(true)
-        setRatingSuccess(false)
-
-        try {
-            await rateMovie(id, rating)
-            setRatingSuccess(true)
-            // Hide success message after 3 seconds
-            setTimeout(() => setRatingSuccess(false), 3000)
-        } catch (err) {
-            console.error('Failed to submit rating:', err)
-            // Even if it fails, we keep the rating displayed in the UI
-        } finally {
-            setSubmittingRating(false)
-        }
-    }
-
-    const toggleAuth = () => {
-        setIsAuthenticated(!isAuthenticated)
-        if (isAuthenticated) {
-            // Clear rating when logging out
-            setUserRating(0)
-            setRatingSuccess(false)
-        }
-    }
-
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-16 h-16 border-b-2 rounded-full animate-spin border-primary-600"></div>
             </div>
         )
     }
@@ -74,7 +38,7 @@ function MovieDetailsPage() {
     if (error) {
         return (
             <div className="max-w-2xl mx-auto mt-8">
-                <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded relative">
+                <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded dark:bg-red-900 dark:border-red-700 dark:text-red-200">
                     <strong className="font-bold">Error!</strong>
                     <span className="block sm:inline"> {error}</span>
                 </div>
@@ -90,7 +54,7 @@ function MovieDetailsPage() {
 
     if (!movie) {
         return (
-            <div className="text-center py-12">
+            <div className="py-12 text-center">
                 <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Movie not found</h2>
                 <button
                     onClick={() => navigate('/')}
@@ -104,19 +68,6 @@ function MovieDetailsPage() {
 
     return (
         <div className="space-y-8">
-            {/* Mock Auth Toggle - For Development Only */}
-            <div className="flex justify-end">
-                <button
-                    onClick={toggleAuth}
-                    className={`px-4 py-2 rounded-lg font-semibold transition-colors ${isAuthenticated
-                        ? 'bg-red-600 hover:bg-red-700 text-white'
-                        : 'bg-green-600 hover:bg-green-700 text-white'
-                        }`}
-                >
-                    {isAuthenticated ? '🔓 Mock Logout' : '🔒 Mock Login'}
-                </button>
-            </div>
-
             {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
@@ -139,7 +90,7 @@ function MovieDetailsPage() {
             </button>
 
             {/* Movie Details */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+            <div className="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                 <div className="md:flex">
                     {/* Poster */}
                     <div className="md:w-1/3">
@@ -147,10 +98,10 @@ function MovieDetailsPage() {
                             <img
                                 src={movie.poster_path}
                                 alt={movie.title}
-                                className="w-full h-full object-cover"
+                                className="object-cover w-full h-full"
                             />
                         ) : (
-                            <div className="w-full h-96 bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                            <div className="flex items-center justify-center w-full bg-gray-300 h-96 dark:bg-gray-700">
                                 <svg
                                     className="w-24 h-24 text-gray-400"
                                     fill="none"
@@ -169,13 +120,13 @@ function MovieDetailsPage() {
                     </div>
 
                     {/* Details */}
-                    <div className="md:w-2/3 p-8">
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <div className="p-8 md:w-2/3">
+                        <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
                             {movie.title}
                         </h1>
 
                         {/* Rating and Year */}
-                        <div className="flex items-center space-x-4 mb-6">
+                        <div className="flex items-center mb-6 space-x-4">
                             {movie.rating !== undefined && (
                                 <div className="flex items-center">
                                     <svg
@@ -200,14 +151,14 @@ function MovieDetailsPage() {
                         {/* Genres */}
                         {movie.genres && movie.genres.length > 0 && (
                             <div className="mb-6">
-                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                                <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
                                     Genres
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {movie.genres.map((genre, index) => (
                                         <span
                                             key={index}
-                                            className="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 px-3 py-1 rounded-full text-sm"
+                                            className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
                                         >
                                             {genre}
                                         </span>
@@ -219,53 +170,14 @@ function MovieDetailsPage() {
                         {/* Overview */}
                         {movie.overview && (
                             <div className="mb-6">
-                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                                <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
                                     Overview
                                 </h3>
-                                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
                                     {movie.overview}
                                 </p>
                             </div>
                         )}
-
-                        {/* Rating Section */}
-                        <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3">
-                                Rate This Movie
-                            </h3>
-
-                            {!isAuthenticated && (
-                                <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg">
-                                    <p className="text-sm text-blue-800 dark:text-blue-200">
-                                        🔒 Please log in to rate this movie
-                                    </p>
-                                </div>
-                            )}
-
-                            <div className="flex items-center space-x-4">
-                                <StarRating
-                                    value={userRating}
-                                    onChange={handleRatingChange}
-                                    disabled={!isAuthenticated || submittingRating}
-                                />
-
-                                {submittingRating && (
-                                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600 mr-2"></div>
-                                        Submitting...
-                                    </div>
-                                )}
-
-                                {ratingSuccess && !submittingRating && (
-                                    <div className="flex items-center text-sm text-green-600 dark:text-green-400">
-                                        <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                        </svg>
-                                        Rating submitted!
-                                    </div>
-                                )}
-                            </div>
-                        </div>
 
                         {/* Additional Info */}
                         <div className="grid grid-cols-2 gap-4 text-sm">
