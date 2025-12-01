@@ -11,8 +11,8 @@ function Layout({ children }) {
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 ">
             {/* Header */}
-            <header className="bg-white dark:bg-gray-800 shadow-sm h-[65px] w-full flex items-center">
-                <div className="flex items-center justify-between w-full px-8 py-4">
+            <header className="bg-white dark:bg-gray-800 shadow-sm h-[75px] px-8 py-4 w-full flex items-center">
+                <div className="flex items-center justify-between w-full ">
                     <Link to="/" className="flex items-center space-x-2">
                         <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
                             🎬 TOP Movie Recommender
@@ -37,7 +37,7 @@ function Layout({ children }) {
                     {!isAuthenticated && (
                         <div>
                             <button
-                                onClick={() => { window.location.href = '/login?fromRoute='+ window.location.pathname }}
+                                onClick={() => { window.location.href = '/login?fromRoute=' + window.location.pathname }}
                                 className="px-4 py-2 text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700"
                             >
                                 Login
@@ -48,9 +48,11 @@ function Layout({ children }) {
 
             </header>
 
-            {/* Main Content */}
-            <main className="container h-[calc(100vh-65px)] max-w-[90%] mx-auto px-4 py-8 ">
-                {children}
+            {/* Main Content  */}
+            <main className="h-[calc(100vh-75px)] max-h-[calc(100vh-75px)] w-full px-8 py-8">
+                <div className="h-full">
+                    {children}
+                </div>
             </main>
 
         </div>

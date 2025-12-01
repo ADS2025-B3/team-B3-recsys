@@ -1,13 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById } from '../services/movieService'
+import { getMovieById, rateMovie } from '../services/movieService'
+import { useSession } from '../context/SessionContext'
+import StarRating from '../components/StarRating'
 
 function MovieDetailsPage() {
     const { id } = useParams()
     const navigate = useNavigate()
+    const { isAuthenticated } = useSession()
+
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    // Rating state
+    const [userRating, setUserRating] = useState(0)
+    const [submittingRating, setSubmittingRating] = useState(false)
+    const [ratingSuccess, setRatingSuccess] = useState(false)
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -26,6 +35,26 @@ function MovieDetailsPage() {
 
         fetchMovieDetails()
     }, [id])
+
+    const handleRatingChange = async (rating) => {
+        setUserRating(rating)
+        setSubmittingRating(true)
+        setRatingSuccess(false)
+
+        try {
+            await rateMovie(id, rating)
+            setRatingSuccess(true)
+            // Hide success message after 3 seconds
+            setTimeout(() => setRatingSuccess(false), 3000)
+        } catch (err) {
+            console.error('Failed to submit rating:', err)
+            // Even if it fails, we keep the rating displayed in the UI
+        } finally {
+            setSubmittingRating(false)
+        }
+    }
+
+
 
     if (loading) {
         return (
@@ -67,7 +96,7 @@ function MovieDetailsPage() {
     }
 
     return (
-        <div className="space-y-8">
+        <section className='flex flex-col h-full gap-y-6'>
             {/* Back Button */}
             <button
                 onClick={() => navigate('/')}
@@ -90,130 +119,123 @@ function MovieDetailsPage() {
             </button>
 
             {/* Movie Details */}
-            <div className="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-                <div className="md:flex">
-                    {/* Poster */}
-                    <div className="md:w-1/3">
-                        {movie.poster_path ? (
-                            <img
-                                src={movie.poster_path}
-                                alt={movie.title}
-                                className="object-cover w-full h-full"
-                            />
-                        ) : (
-                            <div className="flex items-center justify-center w-full bg-gray-300 h-96 dark:bg-gray-700">
+            <div className="flex flex-1 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                {/* Poster */}
+                <div className="md:w-1/3">
+                    {movie.poster_path ? (
+                        <img
+                            src={movie.poster_path}
+                            alt={movie.title}
+                            className="object-fill h-full rounded-l-lg "
+                        />
+                    ) : (
+                        <div className="flex items-center justify-center w-full bg-gray-300 h-96 dark:bg-gray-700">
+                            <svg
+                                className="w-24 h-24 text-gray-400"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
+                                />
+                            </svg>
+                        </div>
+                    )}
+                </div>
+                {/* Details */}
+                <div className="p-8 md:w-2/3">
+                    <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
+                        {movie.title}
+                    </h1>
+
+                    {/* Rating and Year */}
+                    <div className="flex items-center mb-6 space-x-4">
+                        {movie.rating !== undefined && (
+                            <div className="flex items-center">
                                 <svg
-                                    className="w-24 h-24 text-gray-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
+                                    className="w-6 h-6 text-yellow-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-                                    />
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
+                                <span className="ml-2 text-xl font-semibold text-gray-900 dark:text-white">
+                                    {movie.rating.toFixed(1)}
+                                </span>
                             </div>
+                        )}
+                        {movie.release_date && (
+                            <span className="text-lg text-gray-600 dark:text-gray-400">
+                                {new Date(movie.release_date).getFullYear()}
+                            </span>
                         )}
                     </div>
 
-                    {/* Details */}
-                    <div className="p-8 md:w-2/3">
-                        <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
-                            {movie.title}
-                        </h1>
-
-                        {/* Rating and Year */}
-                        <div className="flex items-center mb-6 space-x-4">
-                            {movie.rating !== undefined && (
-                                <div className="flex items-center">
-                                    <svg
-                                        className="w-6 h-6 text-yellow-400"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
+                    {/* Genres */}
+                    {movie.genres && movie.genres.length > 0 && (
+                        <div className="mb-6">
+                            <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+                                Genres
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {movie.genres.map((genre, index) => (
+                                    <span
+                                        key={index}
+                                        className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
                                     >
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
-                                    <span className="ml-2 text-xl font-semibold text-gray-900 dark:text-white">
-                                        {movie.rating.toFixed(1)}
+                                        {genre}
                                     </span>
-                                </div>
-                            )}
-                            {movie.release_date && (
-                                <span className="text-lg text-gray-600 dark:text-gray-400">
-                                    {new Date(movie.release_date).getFullYear()}
-                                </span>
-                            )}
-                        </div>
-
-                        {/* Genres */}
-                        {movie.genres && movie.genres.length > 0 && (
-                            <div className="mb-6">
-                                <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
-                                    Genres
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {movie.genres.map((genre, index) => (
-                                        <span
-                                            key={index}
-                                            className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
-                                        >
-                                            {genre}
-                                        </span>
-                                    ))}
-                                </div>
+                                ))}
                             </div>
-                        )}
+                        </div>
+                    )}
 
-                        {/* Overview */}
-                        {movie.overview && (
-                            <div className="mb-6">
-                                <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
-                                    Overview
-                                </h3>
-                                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
-                                    {movie.overview}
+
+                    {/* Rating Section */}
+                    <div className="p-4 mb-6 rounded-lg bg-gray-50 dark:bg-gray-700">
+                        <h3 className="mb-3 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+                            Rate This Movie
+                        </h3>
+
+                        {!isAuthenticated && (
+                            <div className="p-3 mb-3 border border-blue-200 rounded-lg bg-blue-50 dark:bg-blue-900 dark:border-blue-700">
+                                <p className="text-sm text-blue-800 dark:text-blue-200">
+                                    🔒 Please log in to rate this movie
                                 </p>
                             </div>
                         )}
 
-                        {/* Additional Info */}
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                            {movie.runtime && (
-                                <div>
-                                    <span className="font-semibold text-gray-500 dark:text-gray-400">Runtime:</span>
-                                    <span className="ml-2 text-gray-700 dark:text-gray-300">{movie.runtime} min</span>
+                        <div className="flex items-center space-x-4">
+                            <StarRating
+                                value={userRating}
+                                onChange={handleRatingChange}
+                                disabled={!isAuthenticated || submittingRating}
+                            />
+
+                            {submittingRating && (
+                                <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                    <div className="w-4 h-4 mr-2 border-b-2 rounded-full animate-spin border-primary-600"></div>
+                                    Submitting...
                                 </div>
                             )}
-                            {movie.language && (
-                                <div>
-                                    <span className="font-semibold text-gray-500 dark:text-gray-400">Language:</span>
-                                    <span className="ml-2 text-gray-700 dark:text-gray-300">{movie.language}</span>
-                                </div>
-                            )}
-                            {movie.budget && (
-                                <div>
-                                    <span className="font-semibold text-gray-500 dark:text-gray-400">Budget:</span>
-                                    <span className="ml-2 text-gray-700 dark:text-gray-300">
-                                        ${movie.budget.toLocaleString()}
-                                    </span>
-                                </div>
-                            )}
-                            {movie.revenue && (
-                                <div>
-                                    <span className="font-semibold text-gray-500 dark:text-gray-400">Revenue:</span>
-                                    <span className="ml-2 text-gray-700 dark:text-gray-300">
-                                        ${movie.revenue.toLocaleString()}
-                                    </span>
+
+                            {ratingSuccess && !submittingRating && (
+                                <div className="flex items-center text-sm text-green-600 dark:text-green-400">
+                                    <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                    </svg>
+                                    Rating submitted!
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
