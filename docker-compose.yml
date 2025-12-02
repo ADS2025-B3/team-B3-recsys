@@ -16,3 +16,17 @@ services:
       --port 5000
     user: root
 
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: postgres_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    user: root
+    restart: always
+
