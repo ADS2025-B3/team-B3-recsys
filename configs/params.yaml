@@ -1,0 +1,17 @@
+# configs/params.yaml
+main:
+  project_name: "movie_recsys_v1"
+  experiment_name: "baseline_random_forest"
+  tracking_uri: "http://localhost:5500"  # El puerto de tu docker-compose
+  random_seed: 42
+
+data:
+  train_path: "data/processed/train.csv"
+  test_path: "data/processed/test.csv"
+
+model:
+  type: "RandomForestClassifier"
+  params:
+    n_estimators: 100
+    max_depth: 10
+    criterion: "gini"
