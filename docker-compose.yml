@@ -30,3 +30,12 @@ services:
     user: root
     restart: always
 
+  front-end:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: front-end
+    ports:
+      - "80:80"
+    user: root
+    restart: always
