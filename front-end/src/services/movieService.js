@@ -63,15 +63,9 @@ export const getMovieById = async (id) => {
         return {
             id: id,
             title: "Mock Movie Detail",
-            overview: "This is a mock description of the movie.",
-            release_date: "2022-01-01",
             rating: 8.5,
             genres: ["Action", "Adventure"],
             poster_path: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg",
-            runtime: 130,
-            language: "English",
-            budget: 200000000,
-            revenue: 800000000,
 
         }
         //throw new Error(error.response?.data?.message || 'Failed to fetch movie details')
@@ -108,11 +102,23 @@ export const rateMovie = async (movieId, rating) => {
         // Mock response for development
         return {
             success: true,
-            movieId: movieId,
-            rating: rating,
-            message: 'Rating submitted successfully (mock)'
         }
         // throw new Error(error.response?.data?.message || 'Failed to submit rating')
+    }
+}
+
+/**
+ * Get user previous rating for a movie
+ * @param {string|number} movieId - The movie ID
+ * @returns {Promise<number|null>} - The previous rating value or null if not rated
+ */
+export const getUserRating = async (movieId) => {
+    try {
+        const response = await api.get(`/movies/${movieId}/user-rating`)
+        return response.data.rating
+    } catch (error) {
+        console.error('Error fetching user rating:', error)
+        throw new Error(error.response?.data?.message || 'Failed to fetch user rating')
     }
 }
 

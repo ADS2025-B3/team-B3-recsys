@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById, rateMovie } from '../services/movieService'
+import { getMovieById, rateMovie, getUserRating } from '../services/movieService'
 import { useSession } from '../context/SessionContext'
 import StarRating from '../components/StarRating'
 
@@ -32,8 +32,22 @@ function MovieDetailsPage() {
                 setLoading(false)
             }
         }
+        const fetchUserRating = async () => {
+            setLoading(true)
+            try {
+                const rating = await getUserRating(id)
+                setUserRating(rating || 0)
+            } catch (err) {
+                setError(err.message)
+                console.error('Failed to fetch user rating:', err)
+            }
+            finally {
+                setLoading(false)
+            }
+        }
 
         fetchMovieDetails()
+        fetchUserRating()
     }, [id])
 
     const handleRatingChange = async (rating) => {
@@ -42,19 +56,17 @@ function MovieDetailsPage() {
         setRatingSuccess(false)
 
         try {
-            await rateMovie(id, rating)
-            setRatingSuccess(true)
-            // Hide success message after 3 seconds
-            setTimeout(() => setRatingSuccess(false), 3000)
+            const response = await rateMovie(id, rating)
+            if (response.success) {
+                setRatingSuccess(true)
+            }
+
         } catch (err) {
             console.error('Failed to submit rating:', err)
-            // Even if it fails, we keep the rating displayed in the UI
         } finally {
             setSubmittingRating(false)
         }
     }
-
-
 
     if (loading) {
         return (
@@ -121,31 +133,29 @@ function MovieDetailsPage() {
             {/* Movie Details */}
             <div className="flex flex-1 bg-white rounded-lg shadow-lg dark:bg-gray-800">
                 {/* Poster */}
-                <div className="md:w-1/3">
-                    {movie.poster_path ? (
-                        <img
-                            src={movie.poster_path}
-                            alt={movie.title}
-                            className="object-fill h-full rounded-l-lg "
-                        />
-                    ) : (
-                        <div className="flex items-center justify-center w-full bg-gray-300 h-96 dark:bg-gray-700">
-                            <svg
-                                className="w-24 h-24 text-gray-400"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-                                />
-                            </svg>
-                        </div>
-                    )}
-                </div>
+                {movie.poster_path ? (
+                    <img
+                        src={movie.poster_path}
+                        alt={movie.title}
+                        className="object-cover h-full rounded-l-lg aspect-[2/3] "
+                    />
+                ) : (
+                    <div className="flex items-center justify-center w-full bg-gray-300 h-96 dark:bg-gray-700">
+                        <svg
+                            className="w-24 h-24 text-gray-400"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
+                            />
+                        </svg>
+                    </div>
+                )}
                 {/* Details */}
                 <div className="p-8 md:w-2/3">
                     <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">

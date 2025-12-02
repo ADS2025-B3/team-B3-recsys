@@ -20,3 +20,4 @@ venv.bak/
 #frontend
 /front-end/node_modules
 
+/data
