@@ -11,8 +11,8 @@ def load_config(config_path="configs/params.yaml"):
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
-def run_training():
-    config = load_config()
+def run_training(config_override=None, run_name_override=None):
+    config = config_override if config_override else load_config()
     
     # Configurar MLflow (Task 3.1.6)
     mlflow.set_tracking_uri(config["main"]["tracking_uri"])
@@ -21,7 +21,8 @@ def run_training():
     print(f"Iniciando run en: {config['main']['tracking_uri']}")
 
     # Iniciar el run de MLflow
-    with mlflow.start_run(run_name=config["main"]["experiment_name"]):
+    run_name = run_name_override if run_name_override else config["main"]["experiment_name"]
+    with mlflow.start_run(run_name=run_name):
         
         # 2. Cargar datos (usamos los que generaste en la tarea anterior)
         print("Cargando datos...")

@@ -10,7 +10,7 @@ RUN pip install pipenv
 COPY Pipfile Pipfile.lock ./
 
 # Instalamos las dependencias en el sistema del contenedor (flag --system)
-RUN pipenv install --system --deploy
+RUN pipenv install --system --skip-lock
 
 # Copiamos el código
 COPY . .
