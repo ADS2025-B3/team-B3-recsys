@@ -61,7 +61,6 @@ export const SessionProvider = ({ children }) => {
     }, [token])
 
     const logout = async () => {
-        localStorage.removeItem('token')
         setToken(null)
         setUser(null)
         setPreferences(null)
