@@ -20,7 +20,9 @@ function SearchPage() {
                 id: movie.id,
                 title: movie.title,
                 release_year: movie.release_year,
-                genres: movie.genres?.split('|') || []
+                genres: movie.genres?.split('|') || [],
+                average_rating: movie.average_rating,
+                rating_count: movie.rating_count
             }))
             setMovies(moviesParsed)
         } catch (err) {
@@ -32,7 +34,7 @@ function SearchPage() {
     }, [])
 
     return (
-        <div className="space-y-8">
+        <div className={`flex flex-col h-full space-y-8 ${hasSearched ? 'justify-start' : 'justify-center'}`}>
             {/* Hero Section */}
             <div className="space-y-4 text-center">
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
@@ -49,7 +51,7 @@ function SearchPage() {
             </div>
 
             {/* Results Section */}
-            <div>
+            <div className="max-w-[90%] w-[90%] mx-auto">
                 {hasSearched && (
                     <>
                         {!loading && !error && movies.length > 0 && (
