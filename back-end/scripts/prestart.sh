@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+echo "Executing prestart.sh"
+
 set -e
 set -x
 
