@@ -63,34 +63,64 @@ export const getMovieById = async (id) => {
  * Submit a rating for a movie
  * @param {string|number} movieId - The movie ID
  * @param {number} rating - The rating value (1-5)
+ * @param {string} token - The user's authentication token
  * @returns {Promise<Object>} - Response object with the submitted rating
  */
-export const rateMovie = async (movieId, rating) => {
+export const rateMovie = async (movieId, rating, token) => {
     try {
-        const response = await api.post(`/movies/${movieId}/rate`, { rating })
+        const payload = {
+            movie_id: parseInt(movieId),
+            rating: rating
+        }
+
+        const response = await api.post('/ratings/', payload, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return response.data
     } catch (error) {
         console.error('Error rating movie:', error)
-        // Mock response for development
-        return {
-            success: true,
-        }
-        // throw new Error(error.response?.data?.message || 'Failed to submit rating')
+        throw new Error(error.response?.data?.detail || 'Failed to submit rating')
     }
 }
 
 /**
- * Get user previous rating for a movie
- * @param {string|number} movieId - The movie ID
- * @returns {Promise<number|null>} - The previous rating value or null if not rated
+ * Get all user ratings
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Array>} - Array of user rating objects
  */
-export const getUserRating = async (movieId) => {
+export const getUserRatings = async (token) => {
     try {
-        const response = await api.get(`/movies/${movieId}/user-rating`)
-        return response.data.rating
+        const response = await api.get('/ratings/me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error fetching user ratings:', error)
+        throw new Error(error.response?.data?.detail || 'Failed to fetch user ratings')
+    }
+}
+
+/**
+ * Get user rating for a specific movie
+ * @param {string|number} movieId - The movie ID
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Object|null>} - The rating object or null if not rated
+ */
+export const getUserRating = async (movieId, token) => {
+    try {
+        const response = await api.get(`/ratings/${movieId}/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
     } catch (error) {
         console.error('Error fetching user rating:', error)
-        throw new Error(error.response?.data?.message || 'Failed to fetch user rating')
+        throw new Error(error.response?.data?.detail || 'Failed to fetch user rating')
     }
 }
 
@@ -98,4 +128,6 @@ export default {
     searchMovies,
     getMovieById,
     rateMovie,
+    getUserRating,
+    getUserRatings,
 }
