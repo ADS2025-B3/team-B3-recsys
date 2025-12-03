@@ -1,25 +1,26 @@
 import { useNavigate } from 'react-router-dom'
+import { useSession } from '../context/SessionContext'
 
 function MovieCard({ movie }) {
     const navigate = useNavigate()
+    const { preferences } = useSession()
 
     const handleClick = () => {
         navigate(`/movie/${movie.id}`)
     }
-
     return (
         <div
             onClick={handleClick}
-            className="card cursor-pointer"
+            className="cursor-pointer card"
         >
             {movie.poster_path ? (
                 <img
                     src={movie.poster_path}
                     alt={movie.title}
-                    className="w-full h-64 object-cover"
+                    className="object-cover w-full h-64"
                 />
             ) : (
-                <div className="w-full h-64 bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                <div className="flex items-center justify-center w-full h-64 bg-gray-300 dark:bg-gray-700">
                     <svg
                         className="w-16 h-16 text-gray-400"
                         fill="none"
@@ -36,11 +37,11 @@ function MovieCard({ movie }) {
                 </div>
             )}
             <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
+                <h3 className="text-lg font-semibold text-gray-900 truncate dark:text-white">
                     {movie.title}
                 </h3>
                 {movie.release_year && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         {movie.release_year}
                     </p>
                 )}
@@ -62,11 +63,11 @@ function MovieCard({ movie }) {
                     </div>
                 )}
                 {movie.genres && movie.genres.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1 mt-2">
                         {movie.genres.slice(0, 2).map((genre, index) => (
                             <span
                                 key={index}
-                                className="text-xs bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 px-2 py-1 rounded"
+                                className={"text-xs " + (preferences && preferences.preferred_genres.includes(genre) ? "bg-green-200 border-2 border-green-900 text-green-900 " : "bg-primary-900 text-primary-200") + " px-2 py-1 rounded"}
                             >
                                 {genre}
                             </span>
