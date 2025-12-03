@@ -1,5 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
 /.vscode
 /venv
 /data
 /back-end/app/__pycache__
 .env
+
+
+# Environments
+.env
+.env.local
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+#frontend
+/front-end/node_modules
+

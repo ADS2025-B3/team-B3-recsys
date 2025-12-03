@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById, getMovieRecommendations } from '../services/movieService'
-import MovieList from '../components/MovieList'
+import { getMovieById } from '../services/movieService'
 
 function MovieDetailsPage() {
     const { id } = useParams()
     const navigate = useNavigate()
     const [movie, setMovie] = useState(null)
-    const [recommendations, setRecommendations] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [loadingRecommendations, setLoadingRecommendations] = useState(false)
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -20,17 +17,6 @@ function MovieDetailsPage() {
             try {
                 const movieData = await getMovieById(id)
                 setMovie(movieData)
-
-                // Fetch recommendations
-                setLoadingRecommendations(true)
-                try {
-                    const recommendationsData = await getMovieRecommendations(id)
-                    setRecommendations(recommendationsData)
-                } catch (err) {
-                    console.error('Failed to load recommendations:', err)
-                } finally {
-                    setLoadingRecommendations(false)
-                }
             } catch (err) {
                 setError(err.message)
             } finally {
@@ -43,8 +29,8 @@ function MovieDetailsPage() {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="w-16 h-16 border-b-2 rounded-full animate-spin border-primary-600"></div>
             </div>
         )
     }
@@ -52,7 +38,7 @@ function MovieDetailsPage() {
     if (error) {
         return (
             <div className="max-w-2xl mx-auto mt-8">
-                <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded relative">
+                <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded dark:bg-red-900 dark:border-red-700 dark:text-red-200">
                     <strong className="font-bold">Error!</strong>
                     <span className="block sm:inline"> {error}</span>
                 </div>
@@ -68,7 +54,7 @@ function MovieDetailsPage() {
 
     if (!movie) {
         return (
-            <div className="text-center py-12">
+            <div className="py-12 text-center">
                 <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Movie not found</h2>
                 <button
                     onClick={() => navigate('/')}
@@ -104,7 +90,7 @@ function MovieDetailsPage() {
             </button>
 
             {/* Movie Details */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+            <div className="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
                 <div className="md:flex">
                     {/* Poster */}
                     <div className="md:w-1/3">
@@ -112,10 +98,10 @@ function MovieDetailsPage() {
                             <img
                                 src={movie.poster_path}
                                 alt={movie.title}
-                                className="w-full h-full object-cover"
+                                className="object-cover w-full h-full"
                             />
                         ) : (
-                            <div className="w-full h-96 bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+                            <div className="flex items-center justify-center w-full bg-gray-300 h-96 dark:bg-gray-700">
                                 <svg
                                     className="w-24 h-24 text-gray-400"
                                     fill="none"
@@ -134,13 +120,13 @@ function MovieDetailsPage() {
                     </div>
 
                     {/* Details */}
-                    <div className="md:w-2/3 p-8">
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    <div className="p-8 md:w-2/3">
+                        <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
                             {movie.title}
                         </h1>
 
                         {/* Rating and Year */}
-                        <div className="flex items-center space-x-4 mb-6">
+                        <div className="flex items-center mb-6 space-x-4">
                             {movie.rating !== undefined && (
                                 <div className="flex items-center">
                                     <svg
@@ -165,14 +151,14 @@ function MovieDetailsPage() {
                         {/* Genres */}
                         {movie.genres && movie.genres.length > 0 && (
                             <div className="mb-6">
-                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                                <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
                                     Genres
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {movie.genres.map((genre, index) => (
                                         <span
                                             key={index}
-                                            className="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 px-3 py-1 rounded-full text-sm"
+                                            className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
                                         >
                                             {genre}
                                         </span>
@@ -184,10 +170,10 @@ function MovieDetailsPage() {
                         {/* Overview */}
                         {movie.overview && (
                             <div className="mb-6">
-                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                                <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
                                     Overview
                                 </h3>
-                                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
                                     {movie.overview}
                                 </p>
                             </div>
@@ -227,20 +213,6 @@ function MovieDetailsPage() {
                     </div>
                 </div>
             </div>
-
-            {/* Recommendations */}
-            {(recommendations.length > 0 || loadingRecommendations) && (
-                <div className="mt-12">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                        You Might Also Like
-                    </h2>
-                    <MovieList
-                        movies={recommendations}
-                        loading={loadingRecommendations}
-                        error={null}
-                    />
-                </div>
-            )}
         </div>
     )
 }
