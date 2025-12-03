@@ -15,5 +15,4 @@ RUN pipenv install --system --skip-lock
 # Copiamos el código
 COPY . .
 
-CMD ["python", "src/main.py"] 
-# (Este CMD es provisional, luego lo cambiaremos por tu script de runner)
+CMD ["python", "src/train.py"] 
