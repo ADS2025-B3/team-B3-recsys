@@ -23,6 +23,7 @@ class Rating(RatingBase, table=True):
         
     # For ratings created inside your app (useful even if timestamp is None)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    
 
 
 class RatingCreate(RatingBase):
@@ -40,4 +41,7 @@ class RatingRead(SQLModel):
     """
     id: int
     user_id: int
+    movie_id: int
+    rating: int
+    timestamp: Optional[int] = None
     created_at: datetime

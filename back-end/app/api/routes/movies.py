@@ -21,7 +21,7 @@ def list_movies(
     )
 
 
-@router.get("/search/", response_model=List[MovieRead])
+@router.get("/search", response_model=List[MovieRead])
 def search_movies(session: SessionDep, q: str, limit: int = 50):
     return crud.movie.movie_crud.search(session, query=q, limit=limit)
 

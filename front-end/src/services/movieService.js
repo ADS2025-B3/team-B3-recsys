@@ -24,27 +24,7 @@ export const searchMovies = async (query) => {
         return response.data
     } catch (error) {
         console.error('Error searching movies:', error)
-        //mock up data
-        return [{
-            id: 1,
-            title: "Mock Movie 1",
-            year: 2022,
-            poster_path: "https://proassetspdlcom.cdnstatics2.com/usuaris/libros/fotos/303/original/portada_vengadores-endgame-el-libro-de-la-pelicula_marvel_201910081425.jpg"
-        },
-        {
-            id: 2,
-            title: "Mock Movie 2",
-            year: 2021,
-            poster_path: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg"
-        },
-        {
-            id: 3,
-            title: "Mock Movie 3",
-            year: 2020,
-            poster_path: "https://m.media-amazon.com/images/I/51oD6C1XQDL._AC_SY445_.jpg"
-        }
-        ]
-        //throw new Error(error.response?.data?.message || 'Failed to search movies')
+        throw new Error(error.response?.data?.message || 'Failed to search movies')
     }
 }
 
@@ -59,22 +39,8 @@ export const getMovieById = async (id) => {
         return response.data
     } catch (error) {
         console.error('Error fetching movie details:', error)
-        //mock up data
-        return {
-            id: id,
-            title: "Mock Movie Detail",
-            overview: "This is a mock description of the movie.",
-            release_date: "2022-01-01",
-            rating: 8.5,
-            genres: ["Action", "Adventure"],
-            poster_path: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg",
-            runtime: 130,
-            language: "English",
-            budget: 200000000,
-            revenue: 800000000,
 
-        }
-        //throw new Error(error.response?.data?.message || 'Failed to fetch movie details')
+        throw new Error(error.response?.data?.message || 'Failed to fetch movie details')
     }
 }
 
@@ -93,7 +59,75 @@ export const getMovieById = async (id) => {
 //     }
 // }
 
+/**
+ * Submit a rating for a movie
+ * @param {string|number} movieId - The movie ID
+ * @param {number} rating - The rating value (1-5)
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Object>} - Response object with the submitted rating
+ */
+export const rateMovie = async (movieId, rating, token) => {
+    try {
+        const payload = {
+            movie_id: parseInt(movieId),
+            rating: rating
+        }
+
+        const response = await api.post('/ratings/', payload, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error rating movie:', error)
+        throw new Error(error.response?.data?.detail || 'Failed to submit rating')
+    }
+}
+
+/**
+ * Get all user ratings
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Array>} - Array of user rating objects
+ */
+export const getUserRatings = async (token) => {
+    try {
+        const response = await api.get('/ratings/me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error fetching user ratings:', error)
+        throw new Error(error.response?.data?.detail || 'Failed to fetch user ratings')
+    }
+}
+
+/**
+ * Get user rating for a specific movie
+ * @param {string|number} movieId - The movie ID
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Object|null>} - The rating object or null if not rated
+ */
+export const getUserRating = async (movieId, token) => {
+    try {
+        const response = await api.get(`/ratings/${movieId}/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error fetching user rating:', error)
+        throw new Error(error.response?.data?.detail || 'Failed to fetch user rating')
+    }
+}
+
 export default {
     searchMovies,
     getMovieById,
+    rateMovie,
+    getUserRating,
+    getUserRatings,
 }
