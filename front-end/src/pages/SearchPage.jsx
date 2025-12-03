@@ -16,7 +16,13 @@ function SearchPage() {
 
         try {
             const results = await searchMovies(query)
-            setMovies(results)
+            const moviesParsed = results.map((movie) => ({
+                id: movie.id,
+                title: movie.title,
+                release_year: movie.release_year,
+                genres: movie.genres?.split('|') || []
+            }))
+            setMovies(moviesParsed)
         } catch (err) {
             setError(err.message)
             setMovies([])
@@ -28,7 +34,7 @@ function SearchPage() {
     return (
         <div className="space-y-8">
             {/* Hero Section */}
-            <div className="text-center space-y-4">
+            <div className="space-y-4 text-center">
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
                     Discover Your Next Favorite Movie
                 </h1>
@@ -58,9 +64,9 @@ function SearchPage() {
                 )}
 
                 {!hasSearched && (
-                    <div className="text-center py-12">
+                    <div className="py-12 text-center">
                         <svg
-                            className="mx-auto h-24 w-24 text-gray-400"
+                            className="w-24 h-24 mx-auto text-gray-400"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
