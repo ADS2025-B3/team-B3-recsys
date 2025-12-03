@@ -1,5 +1,5 @@
-""" User models """
-from sqlmodel import SQLModel, Field
+from sqlmodel import Field
+from .base import SQLModel
 from enum import Enum
 from pydantic import EmailStr
 
