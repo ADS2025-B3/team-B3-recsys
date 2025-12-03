@@ -37,10 +37,10 @@ function SearchPage() {
         <div className={`flex flex-col h-full space-y-8 ${hasSearched ? 'justify-start' : 'justify-center'}`}>
             {/* Hero Section */}
             <div className="space-y-4 text-center">
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-4xl font-bold text-white">
                     Discover Your Next Favorite Movie
                 </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-400">
+                <p className="text-lg text-gray-400">
                     Search from thousands of movies and get personalized recommendations
                 </p>
             </div>
@@ -56,7 +56,7 @@ function SearchPage() {
                     <>
                         {!loading && !error && movies.length > 0 && (
                             <div className="mb-4">
-                                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                                <h2 className="text-2xl font-semibold text-white">
                                     Search Results ({movies.length})
                                 </h2>
                             </div>
@@ -80,10 +80,10 @@ function SearchPage() {
                                 d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
                             />
                         </svg>
-                        <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
+                        <h3 className="mt-4 text-lg font-medium text-white">
                             Start Your Search
                         </h3>
-                        <p className="mt-2 text-gray-500 dark:text-gray-400">
+                        <p className="mt-2 text-gray-400">
                             Enter a movie title in the search box above to get started
                         </p>
                     </div>

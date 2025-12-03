@@ -39,7 +39,7 @@ function MovieDetailsPage() {
         setLoading(true)
         try {
             const rating = await getUserRating(id, token)
-            setUserRating(rating.rating || 0)
+            setUserRating(rating?.rating || 0)
         } catch (err) {
             setError(err.message)
             console.error('Failed to fetch user rating:', err)
@@ -92,7 +92,7 @@ function MovieDetailsPage() {
     if (error) {
         return (
             <div className="max-w-2xl mx-auto mt-8">
-                <div className="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded dark:bg-red-900 dark:border-red-700 dark:text-red-200">
+                <div className="relative px-4 py-3 text-red-200 bg-red-900 border border-red-700 rounded">
                     <strong className="font-bold">Error!</strong>
                     <span className="block sm:inline"> {error}</span>
                 </div>
@@ -109,7 +109,7 @@ function MovieDetailsPage() {
     if (!movie) {
         return (
             <div className="py-12 text-center">
-                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Movie not found</h2>
+                <h2 className="text-2xl font-semibold text-white">Movie not found</h2>
                 <button
                     onClick={() => navigate('/')}
                     className="mt-4 btn-primary"
@@ -144,7 +144,7 @@ function MovieDetailsPage() {
             </button>
 
             {/* Movie Details */}
-            <div className="flex flex-1 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+            <div className="flex flex-1 bg-gray-800 rounded-lg shadow-lg">
                 {/* Poster */}
                 {movie.poster_path ? (
                     <img
@@ -153,7 +153,7 @@ function MovieDetailsPage() {
                         className="object-cover h-full rounded-l-lg aspect-[2/3] "
                     />
                 ) : (
-                    <div className="flex items-center justify-center h-full rounded-l-lg aspect-[2/3]  bg-gray-300  dark:bg-gray-700">
+                    <div className="flex items-center justify-center h-full rounded-l-lg aspect-[2/3] bg-gray-700">
                         <svg
                             className="w-24 h-24 text-gray-400"
                             fill="none"
@@ -171,7 +171,7 @@ function MovieDetailsPage() {
                 )}
                 {/* Details */}
                 <div className="p-8 md:w-2/3">
-                    <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
+                    <h1 className="mb-4 text-3xl font-bold text-white">
                         {movie.title}
                     </h1>
 
@@ -186,16 +186,16 @@ function MovieDetailsPage() {
                                 >
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
-                                <span className="ml-2 text-xl font-semibold text-gray-900 dark:text-white">
+                                <span className="ml-2 text-xl font-semibold text-white">
                                     {movie.average_rating.toFixed(1)}
                                 </span>
-                                <span className="ml-1 text-sm text-gray-500 dark:text-gray-400">
+                                <span className="ml-1 text-sm text-gray-400">
                                     ({movie.rating_count || 0} ratings)
                                 </span>
                             </div>
                         )}
                         {movie.release_year && (
-                            <span className="text-lg text-gray-600 dark:text-gray-400">
+                            <span className="text-lg text-gray-400">
                                 {movie.release_year}
                             </span>
                         )}
@@ -204,7 +204,7 @@ function MovieDetailsPage() {
                     {/* Genres */}
                     {movie.genres && movie.genres.length > 0 && (
                         <div className="mb-6">
-                            <h3 className="mb-2 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+                            <h3 className="mb-2 text-sm font-semibold text-gray-400 uppercase">
                                 Genres
                             </h3>
                             <div className="flex flex-wrap gap-2">
@@ -222,14 +222,14 @@ function MovieDetailsPage() {
 
 
                     {/* Rating Section */}
-                    <div className="p-4 mb-6 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <h3 className="mb-3 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+                    <div className="p-4 mb-6 bg-gray-700 rounded-lg">
+                        <h3 className="mb-3 text-sm font-semibold text-gray-400 uppercase">
                             Rate This Movie
                         </h3>
 
                         {!isAuthenticated && (
-                            <div className="p-3 mb-3 border border-blue-200 rounded-lg bg-blue-50 dark:bg-blue-900 dark:border-blue-700">
-                                <p className="text-sm text-blue-800 dark:text-blue-200">
+                            <div className="p-3 mb-3 bg-blue-900 border border-blue-700 rounded-lg">
+                                <p className="text-sm text-blue-200">
                                     🔒 Please log in to rate this movie
                                 </p>
                             </div>
@@ -243,14 +243,14 @@ function MovieDetailsPage() {
                             />
 
                             {submittingRating && (
-                                <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                                <div className="flex items-center text-sm text-gray-400">
                                     <div className="w-4 h-4 mr-2 border-b-2 rounded-full animate-spin border-primary-600"></div>
                                     Submitting...
                                 </div>
                             )}
 
                             {ratingSuccess && !submittingRating && (
-                                <div className="flex items-center text-sm text-green-600 dark:text-green-400">
+                                <div className="flex items-center text-sm text-green-400">
                                     <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                     </svg>

@@ -33,7 +33,7 @@ function StarRating({ value = 0, onChange, disabled = false, readOnly = false })
         const interactiveClass = !disabled && !readOnly ? "cursor-pointer hover:scale-110" : ""
         const colorClass = index <= rating
             ? "text-yellow-400"
-            : "text-gray-300 dark:text-gray-600"
+            : "text-gray-600"
         const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : ""
 
         return `${baseClass} ${interactiveClass} ${colorClass} ${disabledClass}`.trim()
@@ -62,7 +62,7 @@ function StarRating({ value = 0, onChange, disabled = false, readOnly = false })
                 </button>
             ))}
             {!readOnly && (
-                <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                <span className="ml-2 text-sm text-gray-400">
                     {value > 0 ? `${value}/5` : 'Select rating'}
                 </span>
             )}

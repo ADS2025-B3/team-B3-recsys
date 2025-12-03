@@ -58,7 +58,7 @@ function SearchInput({ onSearch, placeholder = "Search for movies..." }) {
                     <button
                         type="button"
                         onClick={handleClear}
-                        className="absolute inset-y-0 right-12 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+                        className="absolute inset-y-0 right-12 flex items-center pr-3 text-gray-400 hover:text-gray-300"
                     >
                         <svg
                             className="w-5 h-5"

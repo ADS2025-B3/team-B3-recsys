@@ -34,7 +34,7 @@ function Layout({ children }) {
     }
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 ">
+        <div className="flex flex-col min-h-screen bg-gray-900">
             <PreferencesModal
                 isOpen={showPreferencesModal}
                 onClose={handlePreferencesClose}
@@ -44,10 +44,10 @@ function Layout({ children }) {
             />
 
             {/* Header */}
-            <header className="bg-white dark:bg-gray-800 shadow-sm h-[75px] sm:px-8 px-4 py-4 w-full flex items-center">
+            <header className="bg-gray-800 shadow-sm h-[75px] sm:px-8 px-4 py-4 w-full flex items-center">
                 <div className="flex items-center justify-between w-full gap-x-3">
                     <Link to="/" className="flex items-center space-x-2">
-                        <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+                        <div className="text-2xl font-bold text-primary-400">
                             🎬 TOP Movie Recommender
                         </div>
                     </Link>
@@ -55,7 +55,7 @@ function Layout({ children }) {
                     {isAuthenticated && (
                         <div className="flex items-center space-x-4">
                             {user && (
-                                <span className="text-gray-700 dark:text-gray-300">
+                                <span className="text-gray-300">
                                     Welcome, {user.full_name}!
                                 </span>
                             )}

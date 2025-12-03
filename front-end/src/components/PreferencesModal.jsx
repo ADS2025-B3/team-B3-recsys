@@ -103,15 +103,15 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-xl dark:bg-gray-800 max-h-[90vh] overflow-y-auto">
+            <div className="w-full max-w-2xl p-6 bg-gray-800 rounded-lg shadow-xl max-h-[90vh] overflow-y-auto">
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-white">
                         {existingPreferences.preferred_genres.length > 0 ? 'Edit Your Preferences' : 'Select Your Preferences'}
                     </h2>
                     {!isRequired && (
                         <button
                             onClick={handleClose}
-                            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                            className="text-gray-400 hover:text-gray-200"
                             disabled={saving}
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,19 +122,19 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
                 </div>
 
                 {isRequired && (
-                    <div className="p-3 mb-4 text-sm text-blue-700 bg-blue-100 rounded-md dark:bg-blue-900 dark:text-blue-200">
+                    <div className="p-3 mb-4 text-sm text-blue-200 bg-blue-900 rounded-md">
                         Please select your preferred genres to get personalized movie recommendations!
                     </div>
                 )}
 
                 {loading ? (
-                    <div className="py-8 text-center text-gray-600 dark:text-gray-400">
+                    <div className="py-8 text-center text-gray-400">
                         Loading genres...
                     </div>
                 ) : (
                     <>
                         <div className="mb-4">
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-gray-400">
                                 Select one or more genres you enjoy:
                             </p>
                         </div>
@@ -146,7 +146,7 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
                                     onClick={() => toggleGenre(genre)}
                                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${selectedGenres.includes(genre)
                                         ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                        : 'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
+                                        : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
                                         }`}
                                     disabled={saving}
                                 >
@@ -156,21 +156,21 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
                         </div>
 
                         {selectedGenres.length > 0 && (
-                            <div className="p-3 mb-4 rounded-md bg-gray-50 dark:bg-gray-700">
-                                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <div className="p-3 mb-4 rounded-md bg-gray-700">
+                                <p className="text-sm font-medium text-gray-300">
                                     Selected: {selectedGenres.join(', ')}
                                 </p>
                             </div>
                         )}
 
                         {error && (
-                            <div className="p-3 mb-4 text-sm text-red-700 bg-red-100 rounded-md dark:bg-red-900 dark:text-red-200">
+                            <div className="p-3 mb-4 text-sm text-red-200 bg-red-900 rounded-md">
                                 {error}
                             </div>
                         )}
 
                         {success && (
-                            <div className="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-md dark:bg-green-900 dark:text-green-200">
+                            <div className="p-3 mb-4 text-sm text-green-200 bg-green-900 rounded-md">
                                 {success}
                             </div>
                         )}
@@ -179,7 +179,7 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
                             {!isRequired && (
                                 <button
                                     onClick={handleClose}
-                                    className="px-4 py-2 text-gray-700 transition-colors bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                                    className="px-4 py-2 text-gray-300 transition-colors bg-gray-700 rounded-md hover:bg-gray-600"
                                     disabled={saving}
                                 >
                                     Cancel
