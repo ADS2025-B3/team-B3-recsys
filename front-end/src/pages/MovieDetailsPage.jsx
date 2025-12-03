@@ -16,7 +16,11 @@ function MovieDetailsPage() {
 
             try {
                 const movieData = await getMovieById(id)
-                setMovie(movieData)
+                const movieParsed = {
+                    ...movieData,
+                    genres: movieData.genres?.split('|') || []
+                }
+                setMovie(movieParsed)
             } catch (err) {
                 setError(err.message)
             } finally {
