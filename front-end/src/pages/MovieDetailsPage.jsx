@@ -7,7 +7,7 @@ import StarRating from '../components/StarRating'
 function MovieDetailsPage() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const { isAuthenticated, token } = useSession()
+    const { isAuthenticated, token, preferences } = useSession()
 
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -53,6 +53,8 @@ function MovieDetailsPage() {
         fetchMovieDetails()
         if (isAuthenticated)
             fetchUserRating()
+        else
+            setUserRating(0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, isAuthenticated, token])
 
@@ -209,7 +211,7 @@ function MovieDetailsPage() {
                                 {movie.genres.map((genre, index) => (
                                     <span
                                         key={index}
-                                        className="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200"
+                                        className={`px-3 py-1 text-sm rounded-full  ${preferences?.preferred_genres.includes(genre) ? 'border-2 border-green-900 bg-green-300 text-green-900' : 'bg-primary-900 text-white '} `}
                                     >
                                         {genre}
                                     </span>

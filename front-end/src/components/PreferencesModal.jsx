@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { getAvailableGenres, saveUserPreferences, updateUserPreferences } from '../services/preferencesService'
 import { useSession } from '../context/SessionContext'
 
-function PreferencesModal({ isOpen, onClose, existingPreferences = null, isRequired = false }) {
+function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, isRequired = false }) {
     const [genres, setGenres] = useState([])
     const [selectedGenres, setSelectedGenres] = useState([])
     const [loading, setLoading] = useState(true)
@@ -12,12 +12,15 @@ function PreferencesModal({ isOpen, onClose, existingPreferences = null, isRequi
     const { token } = useSession()
 
     useEffect(() => {
-        if (isOpen) {
-            loadGenres()
-            if (existingPreferences?.preferred_genres) {
-                setSelectedGenres(existingPreferences.preferred_genres)
-            }
+        if (genres.length === 0) loadGenres()
+        if (isOpen && existingPreferences?.preferred_genres.length > 0) {
+            setSelectedGenres(existingPreferences.preferred_genres)
+            return
         }
+        if (existingPreferences?.preferred_genres.length === 0) {
+            open()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen, existingPreferences])
 
     const loadGenres = async () => {
@@ -71,7 +74,7 @@ function PreferencesModal({ isOpen, onClose, existingPreferences = null, isRequi
             setSuccess('')
 
             // If preferences exist, update them; otherwise create new
-            if (existingPreferences) {
+            if (existingPreferences.preferred_genres.length > 0) {
                 await updateUserPreferences(token, selectedGenres)
                 setSuccess('Preferences updated successfully!')
             } else {
@@ -82,7 +85,7 @@ function PreferencesModal({ isOpen, onClose, existingPreferences = null, isRequi
             // Close modal after a brief delay to show success message
             setTimeout(() => {
                 onClose(true) // Pass true to indicate preferences were saved
-            }, 1000)
+            }, 500)
         } catch (err) {
             setError(err.message || 'Failed to save preferences')
         } finally {
@@ -103,7 +106,7 @@ function PreferencesModal({ isOpen, onClose, existingPreferences = null, isRequi
             <div className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-xl dark:bg-gray-800 max-h-[90vh] overflow-y-auto">
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        {existingPreferences ? 'Edit Your Preferences' : 'Select Your Preferences'}
+                        {existingPreferences.preferred_genres.length > 0 ? 'Edit Your Preferences' : 'Select Your Preferences'}
                     </h2>
                     {!isRequired && (
                         <button
@@ -142,8 +145,8 @@ function PreferencesModal({ isOpen, onClose, existingPreferences = null, isRequi
                                     key={genre}
                                     onClick={() => toggleGenre(genre)}
                                     className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${selectedGenres.includes(genre)
-                                            ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
+                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                        : 'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
                                         }`}
                                     disabled={saving}
                                 >

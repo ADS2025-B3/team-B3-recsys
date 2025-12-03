@@ -51,7 +51,7 @@ function SearchPage() {
             </div>
 
             {/* Results Section */}
-            <div className="max-w-[90%] w-[90%] mx-auto">
+            <div className="max-w-[90%] w-[90%] mx-auto pb-8">
                 {hasSearched && (
                     <>
                         {!loading && !error && movies.length > 0 && (

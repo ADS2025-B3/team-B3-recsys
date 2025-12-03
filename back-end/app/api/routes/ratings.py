@@ -22,8 +22,6 @@ def create_rating(
         movie_id=rating_in.movie_id
     )
     
-    print(existing)
-
     if existing:
         updated_rating = rating_crud.update(
             session=session,

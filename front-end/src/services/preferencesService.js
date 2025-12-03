@@ -30,7 +30,7 @@ export const getAvailableGenres = async () => {
  */
 export const getUserPreferences = async (token) => {
     try {
-        const response = await api.get('/users_preferences/me', {
+        const response = await api.get('/user_preferences/me', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -55,7 +55,7 @@ export const getUserPreferences = async (token) => {
 export const saveUserPreferences = async (token, genres) => {
     try {
         const response = await api.post(
-            '/users_preferences',
+            '/user_preferences',
             { preferred_genres: genres },
             {
                 headers: {
@@ -79,7 +79,7 @@ export const saveUserPreferences = async (token, genres) => {
 export const updateUserPreferences = async (token, genres) => {
     try {
         const response = await api.put(
-            '/users_preferences',
+            '/user_preferences',
             { preferred_genres: genres },
             {
                 headers: {

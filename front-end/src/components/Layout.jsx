@@ -29,12 +29,16 @@ function Layout({ children }) {
             }
         }
     }
+    const handleOpenPreferences = () => {
+        setShowPreferencesModal(true)
+    }
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 ">
             <PreferencesModal
                 isOpen={showPreferencesModal}
                 onClose={handlePreferencesClose}
+                open={handleOpenPreferences}
                 existingPreferences={preferences}
                 isRequired={false}
             />
@@ -83,8 +87,8 @@ function Layout({ children }) {
             </header>
 
             {/* Main Content  */}
-            <main className="h-[calc(100vh-75px)] max-h-[calc(100vh-75px)] w-full px-8 py-8">
-                <div className="h-full">
+            <main className="h-[calc(100vh-75px)] overflow-y-auto max-h-[calc(100vh-75px)] w-full px-8 py-8">
+                <div className="h-full ">
                     {children}
                 </div>
             </main>
