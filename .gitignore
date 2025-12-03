@@ -25,3 +25,4 @@ venv.bak/
 /front-end/node_modules
 
 /front-end/.vite
+/data
