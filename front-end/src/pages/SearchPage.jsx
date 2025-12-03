@@ -16,7 +16,13 @@ function SearchPage() {
 
         try {
             const results = await searchMovies(query)
-            setMovies(results)
+            const moviesParsed = results.map((movie) => ({
+                id: movie.id,
+                title: movie.title,
+                release_year: movie.release_year,
+                genres: movie.genres?.split('|') || []
+            }))
+            setMovies(moviesParsed)
         } catch (err) {
             setError(err.message)
             setMovies([])

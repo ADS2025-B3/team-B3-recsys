@@ -24,27 +24,7 @@ export const searchMovies = async (query) => {
         return response.data
     } catch (error) {
         console.error('Error searching movies:', error)
-        //mock up data
-        return [{
-            id: 1,
-            title: "Mock Movie 1",
-            year: 2022,
-            poster_path: "https://proassetspdlcom.cdnstatics2.com/usuaris/libros/fotos/303/original/portada_vengadores-endgame-el-libro-de-la-pelicula_marvel_201910081425.jpg"
-        },
-        {
-            id: 2,
-            title: "Mock Movie 2",
-            year: 2021,
-            poster_path: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg"
-        },
-        {
-            id: 3,
-            title: "Mock Movie 3",
-            year: 2020,
-            poster_path: "https://m.media-amazon.com/images/I/51oD6C1XQDL._AC_SY445_.jpg"
-        }
-        ]
-        //throw new Error(error.response?.data?.message || 'Failed to search movies')
+        throw new Error(error.response?.data?.message || 'Failed to search movies')
     }
 }
 
@@ -59,16 +39,8 @@ export const getMovieById = async (id) => {
         return response.data
     } catch (error) {
         console.error('Error fetching movie details:', error)
-        //mock up data
-        return {
-            id: id,
-            title: "Mock Movie Detail",
-            rating: 8.5,
-            genres: ["Action", "Adventure"],
-            poster_path: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg",
 
-        }
-        //throw new Error(error.response?.data?.message || 'Failed to fetch movie details')
+        throw new Error(error.response?.data?.message || 'Failed to fetch movie details')
     }
 }
 
