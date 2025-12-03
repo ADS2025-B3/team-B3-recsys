@@ -3,4 +3,4 @@
 from . import user
 from . import movie
 from . import rating
-from . import preference
+from . import user_preference

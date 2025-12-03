@@ -37,4 +37,5 @@ class UserPreferenceCreate(UserPreferenceBase):
 class UserPreferenceRead(SQLModel):
     id: int
     preferred_genres: List[str]
-    updated_at: datetime
+    updated_at: Optional[datetime]
+
