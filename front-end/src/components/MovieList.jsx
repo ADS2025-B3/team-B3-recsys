@@ -11,7 +11,7 @@ function MovieList({ movies, loading, error }) {
 
     if (error) {
         return (
-            <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded relative" role="alert">
+            <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded relative" role="alert">
                 <strong className="font-bold">Error!</strong>
                 <span className="block sm:inline"> {error}</span>
             </div>
@@ -34,8 +34,8 @@ function MovieList({ movies, loading, error }) {
                         d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
                     />
                 </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">No movies found</h3>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <h3 className="mt-2 text-sm font-medium text-white">No movies found</h3>
+                <p className="mt-1 text-sm text-gray-400">
                     Try searching with different keywords
                 </p>
             </div>
