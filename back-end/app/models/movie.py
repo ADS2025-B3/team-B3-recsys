@@ -14,3 +14,5 @@ class MovieRead(SQLModel):
     title: str
     genres: str
     release_year: Optional[int]
+    average_rating: Optional[float] = None
+    rating_count: Optional[int] = None

@@ -21,12 +21,15 @@ def create_rating(
         user_id=current_user.id,
         movie_id=rating_in.movie_id
     )
-
+    
     if existing:
-        raise HTTPException(
-            status_code=400, detail="User has already rated this movie"
+        updated_rating = rating_crud.update(
+            session=session,
+            rating=existing,
+            new_rating_value=rating_in.rating,
+            new_timestamp=rating_in.timestamp
         )
-
+        return updated_rating
     new_rating = rating_crud.create(
         session=session,
         user_id=current_user.id,
@@ -44,3 +47,15 @@ def list_my_ratings(
     current_user: CurrentUser
 ):
     return rating_crud.list_user_ratings(session, current_user.id)
+
+@router.get("/{movie_id}/me", response_model=RatingRead | None)
+def get_my_rating_for_movie(
+    movie_id: int,
+    session: SessionDep,
+    current_user: CurrentUser
+):
+    return rating_crud.get_user_rating(
+        session=session,
+        user_id=current_user.id,
+        movie_id=movie_id
+    )

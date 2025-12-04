@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { getCurrentUser } from '../services/authService'
+import { getUserPreferences } from '../services/preferencesService'
 
 const SessionContext = createContext(null)
 
@@ -7,6 +8,8 @@ export const SessionProvider = ({ children }) => {
     const [token, setToken] = useState(null)
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [preferences, setPreferences] = useState(null)
+    const [showPreferencesModal, setShowPreferencesModal] = useState(false)
 
     useEffect(() => {
         const initSession = async () => {
@@ -16,6 +19,21 @@ export const SessionProvider = ({ children }) => {
                 try {
                     const userData = await getCurrentUser(storedToken)
                     setUser(userData)
+
+                    // Check for user preferences
+                    try {
+                        const userPrefs = await getUserPreferences(storedToken)
+                        setPreferences(userPrefs)
+
+                        // If no preferences exist, show the modal
+                        if (!userPrefs) {
+                            setShowPreferencesModal(true)
+                        }
+                    } catch (prefError) {
+                        console.error('Failed to fetch preferences:', prefError)
+                        // Show modal if preferences don't exist
+                        setShowPreferencesModal(true)
+                    }
                 } catch (error) {
                     console.error('Failed to fetch user data:', error)
                     // maybe invalid, clear it
@@ -43,9 +61,10 @@ export const SessionProvider = ({ children }) => {
     }, [token])
 
     const logout = async () => {
-        localStorage.removeItem('token')
         setToken(null)
         setUser(null)
+        setPreferences(null)
+        setShowPreferencesModal(false)
     }
 
     const value = {
@@ -56,6 +75,10 @@ export const SessionProvider = ({ children }) => {
         isAuthenticated: !!token,
         logout,
         loading,
+        preferences,
+        setPreferences,
+        showPreferencesModal,
+        setShowPreferencesModal,
     }
 
     return (

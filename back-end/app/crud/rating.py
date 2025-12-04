@@ -23,6 +23,20 @@ class RatingCRUD:
         session.refresh(rating)
         return rating
 
+    def update(
+        self,
+        session: Session,
+        rating: Rating,
+        new_rating_value: int,
+        new_timestamp: Optional[int] = None
+    ) -> Rating:
+        rating.rating = new_rating_value
+        if new_timestamp is not None:
+            rating.timestamp = new_timestamp
+        session.add(rating)
+        session.commit()
+        session.refresh(rating)
+        return rating
     def get_user_rating(
         self,
         session: Session,
