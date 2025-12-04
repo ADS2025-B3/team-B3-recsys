@@ -14,6 +14,9 @@ services:
       --backend-store-uri sqlite:////mlflow/data/mlflow.db
       --host 0.0.0.0
       --port 5000
+    depends_on:
+      - postgres
+    restart: always
     user: root
 
   postgres:
@@ -37,8 +40,6 @@ services:
     container_name: front-end
     ports:
       - "80:80"
-    depends_on:
-      - back-end
     user: root
     restart: always
 
