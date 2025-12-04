@@ -37,9 +37,13 @@ services:
     build:
       context: ./front-end
       dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
     container_name: front-end
     ports:
       - "80:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
     user: root
     restart: always
 
