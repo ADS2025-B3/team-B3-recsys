@@ -2,22 +2,29 @@ version: "3.9"
 
 services:
   mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
+    build:
+      context: ./mlflow_server
+      dockerfile: ./Dockerfile
     container_name: mlflow
     ports:
       - "5500:5000"
+    environment:
+      MLFLOW_BACKEND_STORE_URI: postgresql://postgres_user:postgres_password@postgres:5432/postgres
+      MLFLOW_ARTIFACT_ROOT: /mlflow/artifacts
     volumes:
-      - ./mlflow_server/mlruns:/mlflow/mlruns    # artifact storage
-      - ./mlflow_server/data:/mlflow/data        # SQLite DB folder
+      - mlflow_artifacts:/mlflow/artifacts
     command: >
       mlflow server
-      --backend-store-uri sqlite:////mlflow/data/mlflow.db
+      --backend-store-uri postgresql://postgres_user:postgres_password@postgres:5432/postgres
+      --default-artifact-root /mlflow/artifacts
       --host 0.0.0.0
       --port 5000
     depends_on:
       - postgres
     restart: always
     user: root
+    profiles:
+      - mlflow_profile
 
   postgres:
     image: postgres:16
@@ -32,6 +39,9 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     user: root
     restart: always
+    profiles:
+      - web_app_profile
+      - mlflow_profile
 
   front-end:
     build:
@@ -46,6 +56,8 @@ services:
       - VITE_API_BASE_URL=http://localhost:8000
     user: root
     restart: always
+    profiles:
+      - web_app_profile
 
   back-end:
     build:
@@ -68,3 +80,9 @@ services:
       - postgres
     user: root
     restart: always
+    profiles:
+      - web_app_profile
+
+volumes:
+  postgres_data:
+  mlflow_artifacts:
