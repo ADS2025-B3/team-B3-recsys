@@ -13,6 +13,8 @@ matplotlib = "*"
 pyyaml = "*"
 dvc = "*"
 mlflow = "*"
+scipy = "*"
+tqdm = "*"
 
 [dev-packages]
 
