@@ -5,6 +5,10 @@ __pycache__/
 
 
 /.vscode
+/venv
+/data
+/back-end/app/__pycache__
+.env
 
 
 # Environments
@@ -20,3 +24,9 @@ venv.bak/
 #frontend
 /front-end/node_modules
 
+/front-end/.vite
+/data
+
+
+# PostgreSQL data
+postgres_data/

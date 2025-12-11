@@ -1,0 +1,6 @@
+2025-11-27 21:39:13,431 - INFO - Initializing service
+2025-11-27 21:39:13,431 - INFO - Starting call to '__main__.init', this is the 1st time calling it.
+2025-11-27 21:39:15,200 - INFO - Service finished initializing
+2025-12-03 19:11:24,239 - INFO - Initializing service
+2025-12-03 19:11:24,239 - INFO - Starting call to '__main__.init', this is the 1st time calling it.
+2025-12-03 19:11:27,012 - INFO - Service finished initializing
