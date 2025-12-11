@@ -1,0 +1,18 @@
+# Dockerfile.experiments
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Instalamos pipenv en el contenedor
+RUN pip install pipenv
+
+# Copiamos los archivos de definición de dependencias
+COPY Pipfile Pipfile.lock ./
+
+# Instalamos las dependencias en el sistema del contenedor (flag --system)
+RUN pipenv install --system --skip-lock
+
+# Copiamos el código
+COPY . .
+
+CMD ["python", "src/train.py"] 

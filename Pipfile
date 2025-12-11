@@ -4,12 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-mlflow = "*"
-scikit-learn = "*"
-pandas = "*"
-numpy = "*"
 fastapi = "*"
 uvicorn = "*"
+pandas = "*"
+numpy = "*"
+scikit-learn = "*"
+matplotlib = "*"
+pyyaml = "*"
+dvc = "*"
+mlflow = "*"
+scipy = "*"
+tqdm = "*"
 
 [dev-packages]
 
