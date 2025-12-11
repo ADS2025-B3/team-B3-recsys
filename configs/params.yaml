@@ -15,3 +15,14 @@ model:
     n_estimators: 100
     max_depth: 10
     criterion: "gini"
+  
+svd_model:
+  num_components: 15     # Number of latent factors
+  top_n: 10              # Default number of recommendations
+
+
+item_rec_model:
+  num_components: 15
+  num_similar: 5
+  # Movies to test: 50 (Star Wars), 1 (Toy Story), 294 (Liar Liar), 121 (Independence Day)
+  test_movie_ids: [50, 1, 294, 121]
