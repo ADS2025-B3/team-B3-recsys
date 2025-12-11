@@ -12,7 +12,7 @@ def process_data():
     print("Cargando MovieLens 100k dataset...")
     
     # Define the columns
-    columns = ['user_id', 'item_id', 'rating', 'timestamp']
+    columns = ['user_id', 'movie_id', 'rating', 'timestamp']
     
     
     df = pd.read_csv(RAW_DATA_PATH, sep='\t', names=columns)

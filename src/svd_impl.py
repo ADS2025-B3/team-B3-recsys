@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.linalg import sqrtm
+from sklearn.metrics.pairwise import cosine_similarity
 
 class SVDCF:
     """
@@ -65,17 +66,19 @@ class SVDCF:
         
         # --- THE MATH (SVD) ---
         # Decompose matrix into U, S, V
-        U, s, V = np.linalg.svd(train_matrix, full_matrices=False)
+        U, s, Vt = np.linalg.svd(train_matrix, full_matrices=False)
         
         # Keep only top k components
         S = np.diag(s[0:self.num_components])
         U = U[:, 0:self.num_components]
-        V = V[0:self.num_components, :]
+        Vt = Vt[0:self.num_components, :]
+
+        self.Vt = Vt
         
         # Reconstruct the matrix (prediction)
         S_root = sqrtm(S)
         USk = np.dot(U, S_root)
-        SkV = np.dot(S_root, V)
+        SkV = np.dot(S_root, Vt)
         
         # Add the means back
         self.Y_hat = np.dot(USk, SkV) + x
@@ -123,3 +126,48 @@ class SVDCF:
         
         # Return only the movie_ids
         return [rec[0] for rec in recommendations[:n]]
+    
+    def recommend_similar_items(self, movie_id, n=5):
+        """
+        Returns the top N most similar movies to a given movie_id based on latent features.
+        
+        :param movie_id: The ID of the query movie (e.g., 50 for Star Wars).
+        :param n: Number of similar items to return.
+        :return: List of tuples (similar_movie_id, similarity_score).
+        """
+        if movie_id not in self.movies_id2index:
+            print(f"Movie ID {movie_id} not found in training set.")
+            return []
+            
+        # 1. Get the index of the query movie
+        query_idx = self.movies_id2index[movie_id]
+        
+        # 2. Extract the latent vector for this movie (from V transpose)
+        # Vt shape is (n_components, n_movies). We need columns.
+        # Let's transpose Vt to shape (n_movies, n_components) for easier sklearn usage
+        item_matrix = self.Vt.T 
+        
+        query_vector = item_matrix[query_idx].reshape(1, -1)
+        
+        # 3. Compute Cosine Similarity between this movie and ALL other movies
+        # Result shape: (1, n_movies)
+        sim_scores = cosine_similarity(query_vector, item_matrix).flatten()
+        
+        # 4. Get indices of top N scores
+        # We perform argsort and take the last N+1 (because the movie is most similar to itself)
+        # [::-1] reverses the array to have descending order
+        top_indices = sim_scores.argsort()[-(n+1):][::-1]
+        
+        recommendations = []
+        for idx in top_indices:
+            rec_movie_id = self.movies_index2id[idx]
+            
+            # Exclude the movie itself from recommendations
+            if rec_movie_id != movie_id:
+                score = sim_scores[idx]
+                recommendations.append((rec_movie_id, score))
+                
+                if len(recommendations) == n:
+                    break
+                    
+        return recommendations
