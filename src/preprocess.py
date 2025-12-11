@@ -5,8 +5,10 @@ import os
 # Configuration
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
-RAW_DATA_PATH = 'data/raw/u.data'
-PROCESSED_DIR = 'data/processed'
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+RAW_DATA_PATH = os.path.join(PROJECT_ROOT, 'data', 'raw', 'u.data')
+PROCESSED_DIR = os.path.join(PROJECT_ROOT, 'data', 'processed')
 
 def process_data():
     print("Cargando MovieLens 100k dataset...")

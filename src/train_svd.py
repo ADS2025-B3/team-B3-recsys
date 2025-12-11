@@ -4,16 +4,29 @@ import mlflow
 import os
 from svd_impl import SVDCF 
 import metrics # Importamos nuestro nuevo módulo de métricas
+from dotenv import load_dotenv
 
-def load_config(config_path="configs/params.yaml"):
+# Use absolute paths based on script location
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+
+def load_config(config_path=None):
+    if config_path is None:
+        config_path = os.path.join(PROJECT_ROOT, "configs", "params.yaml")
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
 def run_svd_training():
     config = load_config()
     
-    # Setup MLflow
-    mlflow.set_tracking_uri(config["main"]["tracking_uri"])
+   # --- FIX: Explicitly set environment variables for Docker stability ---
+    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
+    os.environ["MLFLOW_TRACKING_URI"] = tracking_uri
+    os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("MLFLOW_TRACKING_USERNAME", "")
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("MLFLOW_TRACKING_PASSWORD", "")
+    # ----------------------------------------------------------------------
+    print(f"Loaded MLFLOW_TRACKING_URI: {os.getenv('MLFLOW_TRACKING_URI')}")
+    mlflow.set_tracking_uri(tracking_uri)
     mlflow.set_experiment(config["main"]["project_name"])
     
     print("Starting SVD Training Run...")
@@ -29,10 +42,13 @@ def run_svd_training():
         mlflow.log_param("num_components", n_components)
         mlflow.log_param("top_n", top_n)
         
-        # 2. Load Data (Train AND Test)
+        # 2. Load Data (Train AND Test) - Using absolute paths
         print("Loading data...")
-        train_df = pd.read_csv(config["data"]["train_path"])
-        test_df = pd.read_csv(config["data"]["test_path"]) # Ahora cargamos Test también
+        train_path = os.path.join(PROJECT_ROOT, config["data"]["train_path"])
+        train_df = pd.read_csv(train_path)
+        
+        test_path = os.path.join(PROJECT_ROOT, config["data"]["test_path"])
+        test_df = pd.read_csv(test_path) 
         
         # 3. Fit model
         print("Training model...")
@@ -65,4 +81,5 @@ def run_svd_training():
         print(f"\nExample User {sample_user} recommendations: {recs}")
 
 if __name__ == "__main__":
+    load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
     run_svd_training()
