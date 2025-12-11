@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+echo "Executing prestart.sh"
+
 set -e
 set -x
 
@@ -14,3 +16,5 @@ alembic upgrade head
 
 # Create initial data in DB
 python app/initial_data.py
+
+exec "$@"
