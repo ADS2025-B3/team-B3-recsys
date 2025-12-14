@@ -45,19 +45,19 @@ export const getMovieById = async (id) => {
 }
 
 /**
- * Get movie recommendations
+ * Get movie recommendations based on a movie ID
  * @param {string|number} id - The movie ID
  * @returns {Promise<Array>} - Array of recommended movie objects
  */
-// export const getMovieRecommendations = async (id) => {
-//     try {
-//         const response = await api.get(`/movies/${id}/recommendations`)
-//         return response.data
-//     } catch (error) {
-//         console.error('Error fetching recommendations:', error)
-//         throw new Error(error.response?.data?.message || 'Failed to fetch recommendations')
-//     }
-// }
+export const getMovieRecommendations = async (id) => {
+    try {
+        const response = await api.get(`/movies/${id}/recommendations`)
+        return response.data
+    } catch (error) {
+        console.error('Error fetching movie recommendations:', error)
+        throw new Error(error.response?.data?.message || 'Failed to fetch movie recommendations')
+    }
+}
 
 /**
  * Submit a rating for a movie
@@ -124,10 +124,67 @@ export const getUserRating = async (movieId, token) => {
     }
 }
 
+/**
+ * Get user-specific movie recommendations
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Array>} - Array of recommended movie objects
+ */
+export const getUserRecommendations = async (token) => {
+    try {
+        const response = await api.get('/recommendations/user', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error fetching user recommendations:', error)
+        throw new Error(error.response?.data?.message || 'Failed to fetch user recommendations')
+    }
+}
+
+/**
+ * Get top 10 global movie recommendations
+ * @returns {Promise<Array>} - Array of recommended movie objects
+ */
+export const getGlobalRecommendations = async () => {
+    try {
+        const response = await api.get('/recommendations/global')
+        return response.data
+    } catch (error) {
+        console.error('Error fetching global recommendations:', error)
+        throw new Error(error.response?.data?.message || 'Failed to fetch global recommendations')
+    }
+}
+
+/**
+ * Get predicted rating for a movie
+ * @param {string|number} movieId - The movie ID
+ * @param {string} token - The user's authentication token
+ * @returns {Promise<Object>} - Object with predicted rating
+ */
+export const getPredictedRating = async (movieId, token) => {
+    try {
+        const response = await api.get(`/movies/${movieId}/predict`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error fetching predicted rating:', error)
+        throw new Error(error.response?.data?.message || 'Failed to fetch predicted rating')
+    }
+}
+
 export default {
     searchMovies,
     getMovieById,
+    getMovieRecommendations,
     rateMovie,
     getUserRating,
     getUserRatings,
+    getUserRecommendations,
+    getGlobalRecommendations,
+    getPredictedRating,
 }

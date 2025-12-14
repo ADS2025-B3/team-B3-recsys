@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById, rateMovie, getUserRating } from '../services/movieService'
+import { getMovieById, rateMovie, getUserRating, getMovieRecommendations, getPredictedRating } from '../services/movieService'
 import { useSession } from '../context/SessionContext'
 import StarRating from '../components/StarRating'
+import MovieList from '../components/MovieList'
 
 function MovieDetailsPage() {
     const { id } = useParams()
@@ -17,6 +18,13 @@ function MovieDetailsPage() {
     const [userRating, setUserRating] = useState(0)
     const [submittingRating, setSubmittingRating] = useState(false)
     const [ratingSuccess, setRatingSuccess] = useState(false)
+
+    // Recommendations state
+    const [recommendations, setRecommendations] = useState([])
+    const [loadingRecs, setLoadingRecs] = useState(false)
+
+    // Predicted rating state
+    const [predictedRating, setPredictedRating] = useState(null)
 
     async function fetchMovieDetails() {
         setLoading(true)
@@ -49,12 +57,45 @@ function MovieDetailsPage() {
         }
     }
 
+    async function fetchRecommendations() {
+        setLoadingRecs(true)
+
+        try {
+            const recs = await getMovieRecommendations(id)
+            const recsParsed = recs.map((movie) => ({
+                id: movie.id,
+                title: movie.title,
+                release_year: movie.release_year,
+                genres: movie.genres?.split('|') || [],
+                average_rating: movie.average_rating,
+                rating_count: movie.rating_count
+            }))
+            setRecommendations(recsParsed)
+        } catch (err) {
+            setRecommendations([])
+            console.error('Failed to fetch recommendations:', err)
+        } finally {
+            setLoadingRecs(false)
+        }
+    }
+
+    async function fetchPredictedRating() {
+        if (!isAuthenticated || !token) return
+        try {
+            const pred = await getPredictedRating(id, token)
+            setPredictedRating(pred.predicted_rating)
+        } catch (err) {
+            console.warn('Failed to fetch predicted rating:', err)
+            setPredictedRating(null)
+        }
+    }
+
     useEffect(() => {
         fetchMovieDetails()
+        fetchRecommendations()
         if (isAuthenticated)
             fetchUserRating()
-        else
-            setUserRating(0)
+        fetchPredictedRating()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, isAuthenticated, token])
 
@@ -258,9 +299,36 @@ function MovieDetailsPage() {
                                 </div>
                             )}
                         </div>
+
+                        {/* Predicted Rating */}
+                        {isAuthenticated && predictedRating !== null && (
+                            <div className="p-3 mt-4 bg-blue-900 border border-blue-700 rounded-lg">
+                                {predictedRating > 3 ? (
+                                    <p className="text-sm font-medium text-green-300">
+                                        🎯 We think you would like this movie!
+                                    </p>
+                                ) : (
+                                    <div className="flex items-center text-sm text-blue-300">
+                                        <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        Predicted rating: {predictedRating.toFixed(1)}/5
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
+
+            {/* Recommendations Section */}
+            {recommendations.length > 0 &&
+                <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
+                    <h2 className="mb-4 text-2xl font-semibold text-white">
+                        Similar Movies
+                    </h2>
+                    <MovieList movies={recommendations} loading={loadingRecs} />
+                </div>}
         </section>
     )
 }

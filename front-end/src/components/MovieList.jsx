@@ -1,28 +1,20 @@
 import MovieCard from './MovieCard'
 
-function MovieList({ movies, loading, error }) {
+function MovieList({ movies, loading, showPredictedRating = false }) {
     if (loading) {
         return (
-            <div className="flex justify-center items-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <div className="flex items-center justify-center py-12">
+                <div className="w-12 h-12 border-b-2 rounded-full animate-spin border-primary-600"></div>
             </div>
         )
     }
 
-    if (error) {
-        return (
-            <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded relative" role="alert">
-                <strong className="font-bold">Error!</strong>
-                <span className="block sm:inline"> {error}</span>
-            </div>
-        )
-    }
 
     if (!movies || movies.length === 0) {
         return (
-            <div className="text-center py-12">
+            <div className="py-12 text-center">
                 <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
+                    className="w-12 h-12 mx-auto text-gray-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -43,9 +35,9 @@ function MovieList({ movies, loading, error }) {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
+                <MovieCard key={movie.id} movie={movie} showPredictedRating={showPredictedRating} />
             ))}
         </div>
     )

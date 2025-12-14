@@ -40,6 +40,27 @@ export const login = async (username, password) => {
 }
 
 /**
+ * Register new user
+ * @param {string} email - User email
+ * @param {string} password - User password
+ * @param {string} fullName - User full name (optional)
+ * @returns {Promise<Object>} - Registration response
+ */
+export const register = async (email, password, fullName) => {
+    try {
+        const response = await api.post('/auth/signup', {
+            email,
+            password,
+            full_name: fullName || null
+        })
+        return response.data
+    } catch (error) {
+        console.error('Error registering:', error.response || error)
+        throw new Error(error.response?.data?.detail || 'Failed to register')
+    }
+}
+
+/**
  * Get current user info
  * @param {string} token - Authentication token
  * @returns {Promise<Object>} - User data
@@ -58,7 +79,9 @@ export const getCurrentUser = async (token) => {
     }
 }
 
+
 export default {
     login,
+    register,
     getCurrentUser,
 }
