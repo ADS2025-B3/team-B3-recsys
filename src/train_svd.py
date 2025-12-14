@@ -16,10 +16,16 @@ def load_config(config_path=None):
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
-def run_svd_training():
+def run_svd_training(n_components=None, top_n=None):
+    """
+    Train SVD model with optional parameter override.
+    
+    :param n_components: Number of latent factors (overrides config if provided)
+    :param top_n: Number of recommendations for evaluation (overrides config if provided)
+    """
     config = load_config()
     
-   # --- FIX: Explicitly set environment variables for Docker stability ---
+    # --- FIX: Explicitly set environment variables for Docker stability ---
     tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
     os.environ["MLFLOW_TRACKING_URI"] = tracking_uri
     os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("MLFLOW_TRACKING_USERNAME", "")
@@ -29,18 +35,20 @@ def run_svd_training():
     mlflow.set_tracking_uri(tracking_uri)
     mlflow.set_experiment(config["main"]["project_name"])
     
+    # Use provided parameters or fall back to config
+    n_components = n_components or config["svd_model"]["num_components"]
+    top_n = top_n or config["svd_model"]["top_n"]
+    
     print("Starting SVD Training Run...")
 
-    run_name_dynamic = f"SVD_k{config['svd_model']['num_components']}_top{config['svd_model']['top_n']}"
+    run_name_dynamic = f"SVD_k{n_components}_top{top_n}"
     
     with mlflow.start_run(run_name=run_name_dynamic):
         # 1. Log Params
-        n_components = config["svd_model"]["num_components"]
-        top_n = config["svd_model"]["top_n"]
-        
         mlflow.log_param("model_type", "SVD")
         mlflow.log_param("num_components", n_components)
         mlflow.log_param("top_n", top_n)
+        mlflow.log_param("random_seed", config["main"].get("random_seed", 42))
      
         
         # 2. Load Data (Train AND Test) - Using absolute paths
@@ -81,18 +89,33 @@ def run_svd_training():
         recs = model.recommend_top_n(sample_user, n=top_n)
         print(f"\nExample User {sample_user} recommendations: {recs}")
         
-        # 7. Save the trained model to MLflow
+        # 7. Log additional metrics
+        print("Calculating additional metrics...")
+        
+        # Coverage: % of catalog that gets recommended
+        all_recommended = set()
+        sample_users = train_df.user_id.unique()[:100]  # Sample 100 users
+        for user in sample_users:
+            recs = model.recommend_top_n(user, n=top_n)
+            all_recommended.update(recs)
+        
+        total_movies = train_df.movie_id.nunique()
+        coverage = len(all_recommended) / total_movies
+        mlflow.log_metric("catalog_coverage", coverage)
+        print(f"Catalog coverage: {coverage:.2%}")
+        
+        # 8. Save the trained model to MLflow
         print("Saving model to MLflow...")
         mlflow.sklearn.log_model(
             sk_model=model,
             artifact_path="model",
             registered_model_name="MovieRatingPredictModel",
-             signature=mlflow.models.infer_signature(
+            signature=mlflow.models.infer_signature(
                 train_df[['user_id', 'movie_id']], 
                 train_df['rating']
             )
         )
-        print("Model saved successfully!")
+     
 
 if __name__ == "__main__":
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
