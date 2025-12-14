@@ -54,7 +54,7 @@ class Settings(BaseSettings):
     DOMAIN: str = "localhost"
     FRONTEND_HOST: str = "http://localhost:3000"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
-
+    BASE_DIR: str = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     @computed_field  # type: ignore[misc]
     @property
     def server_host(self) -> str:
