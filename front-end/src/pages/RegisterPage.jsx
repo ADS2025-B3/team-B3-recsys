@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { register as registerService } from '../services/authService'
+import { useSession } from '../context/SessionContext'
 
 function RegisterPage() {
     const [email, setEmail] = useState('')
@@ -10,6 +11,7 @@ function RegisterPage() {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
+    const { isAuthenticated } = useSession()
 
     const navigate = useNavigate()
 
@@ -27,9 +29,7 @@ function RegisterPage() {
             setError('Password must be at least 8 characters long')
             return
         }
-
         setLoading(true)
-
         try {
             await registerService(email, password, fullName)
             setSuccess(true)
@@ -43,7 +43,14 @@ function RegisterPage() {
             setLoading(false)
         }
     }
-
+    useEffect(() => {
+        if (loading) return
+        if (isAuthenticated) {
+            navigate('/')
+        }
+        return () => { }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading])
     return (
         <div className="flex items-center justify-center flex-1 min-h-full">
             <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl bg-opacity-10 backdrop-blur-lg">

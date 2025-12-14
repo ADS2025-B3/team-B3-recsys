@@ -12,12 +12,12 @@ function LoginPage() {
     const [loading, setLoading] = useState(false)
     const [showPreferences, setShowPreferences] = useState(false)
 
-    const { setToken, setUser, token, setPreferences, setShowPreferencesModal } = useSession()
+    const { setToken, setUser, isAuthenticated, setPreferences, setShowPreferencesModal } = useSession()
     const navigate = useNavigate()
     let [searchParams] = useSearchParams();
     useEffect(() => {
         if (loading) return
-        if (token) {
+        if (isAuthenticated) {
             navigate('/')
         }
         return () => { }
@@ -141,7 +141,7 @@ function LoginPage() {
 
                 <div className="mt-6 text-center">
                     <p className="text-sm text-gray-400">
-                        Don't have an account?{' '}
+                        Don&apos;t have an account?{' '}
                         <a href="/register" className="text-blue-400 hover:text-blue-300">
                             Register here
                         </a>
