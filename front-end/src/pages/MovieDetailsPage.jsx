@@ -48,6 +48,10 @@ function MovieDetailsPage() {
         try {
             const rating = await getUserRating(id, token)
             setUserRating(rating?.rating || 0)
+            if (!rating) {
+                fetchPredictedRating()
+
+            }
         } catch (err) {
             setError(err.message)
             console.error('Failed to fetch user rating:', err)
@@ -95,7 +99,6 @@ function MovieDetailsPage() {
         fetchRecommendations()
         if (isAuthenticated)
             fetchUserRating()
-        fetchPredictedRating()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, isAuthenticated, token])
 
