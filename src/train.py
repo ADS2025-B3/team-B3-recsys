@@ -15,7 +15,11 @@ def run_training(config_override=None, run_name_override=None):
     config = config_override if config_override else load_config()
     
     # Configurar MLflow (Task 3.1.6)
-    mlflow.set_tracking_uri(config["main"]["tracking_uri"])
+    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
+    os.environ["MLFLOW_TRACKING_URI"] = tracking_uri
+    os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("MLFLOW_TRACKING_USERNAME", "")
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("MLFLOW_TRACKING_PASSWORD", "")
+    mlflow.set_tracking_uri(tracking_uri)
     mlflow.set_experiment(config["main"]["project_name"])
     
     print(f"Iniciando run en: {config['main']['tracking_uri']}")
@@ -64,7 +68,13 @@ def run_training(config_override=None, run_name_override=None):
         mlflow.log_metric("f1_score", f1)
         
         # Guardar el modelo en el registro de artefactos de MLflow
-        mlflow.sklearn.log_model(model, "model")
+        print("Saving model to MLflow...")
+        mlflow.sklearn.log_model(
+            sk_model=model,
+            artifact_path="model",
+            registered_model_name="BaselineMovieRatingModel"
+        )
+        print("Model saved successfully!")
         
         # Guardar el archivo de config como evidencia
         mlflow.log_artifact("configs/params.yaml")

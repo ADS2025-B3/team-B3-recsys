@@ -109,6 +109,15 @@ def run_item_similarity_experiment():
         # Cleanup local file
         if os.path.exists(report_path):
             os.remove(report_path)
+        
+        # 6. Save the trained model to MLflow
+        print("Saving model to MLflow...")
+        mlflow.sklearn.log_model(
+            sk_model=model,
+            artifact_path="model",
+            registered_model_name="MovieSimilarRecommenderModel"
+        )
+        print("Model saved successfully!")
 
 if __name__ == "__main__":
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))

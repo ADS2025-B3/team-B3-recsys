@@ -41,6 +41,7 @@ def run_svd_training():
         mlflow.log_param("model_type", "SVD")
         mlflow.log_param("num_components", n_components)
         mlflow.log_param("top_n", top_n)
+     
         
         # 2. Load Data (Train AND Test) - Using absolute paths
         print("Loading data...")
@@ -79,6 +80,19 @@ def run_svd_training():
         sample_user = train_df.user_id.iloc[0]
         recs = model.recommend_top_n(sample_user, n=top_n)
         print(f"\nExample User {sample_user} recommendations: {recs}")
+        
+        # 7. Save the trained model to MLflow
+        print("Saving model to MLflow...")
+        mlflow.sklearn.log_model(
+            sk_model=model,
+            artifact_path="model",
+            registered_model_name="MovieRatingPredictModel",
+             signature=mlflow.models.infer_signature(
+                train_df[['user_id', 'movie_id']], 
+                train_df['rating']
+            )
+        )
+        print("Model saved successfully!")
 
 if __name__ == "__main__":
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
