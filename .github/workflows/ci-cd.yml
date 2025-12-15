@@ -48,11 +48,11 @@ jobs:
           echo "FRONTEND_CHANGED=false" >> $GITHUB_ENV
           echo "BACKEND_CHANGED=false" >> $GITHUB_ENV
 
-          if echo "$CHANGED_FILES" | grep -q "^frontend/"; then
+          if echo "$CHANGED_FILES" | grep -q "^front-end/"; then
             echo "FRONTEND_CHANGED=true" >> $GITHUB_ENV
           fi
 
-          if echo "$CHANGED_FILES" | grep -q "^backend/"; then
+          if echo "$CHANGED_FILES" | grep -q "^back-end/"; then
             echo "BACKEND_CHANGED=true" >> $GITHUB_ENV
           fi
 
@@ -61,6 +61,8 @@ jobs:
             echo "FRONTEND_CHANGED=true" >> $GITHUB_ENV
             echo "BACKEND_CHANGED=true" >> $GITHUB_ENV
           fi
+          echo "Frontend changed: $FRONTEND_CHANGED"
+          echo "Backend changed: $BACKEND_CHANGED"
 
       - name: Deploy backend
         if: env.BACKEND_CHANGED == 'true'
