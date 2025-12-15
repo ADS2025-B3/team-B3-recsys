@@ -51,7 +51,6 @@ function Layout({ children }) {
                             🎬 TOP Movie Recommender
                         </div>
                     </Link>
-
                     {isAuthenticated && (
                         <div className="flex items-center space-x-4">
                             {user && (
@@ -73,7 +72,13 @@ function Layout({ children }) {
                         </div>
                     )}
                     {!isAuthenticated && (
-                        <div>
+                        <div className="flex items-center space-x-4">
+                            <button
+                                onClick={() => { window.location.href = '/register' }}
+                                className="px-4 py-2 text-white transition-colors bg-green-600 rounded-md hover:bg-green-700"
+                            >
+                                Register
+                            </button>
                             <button
                                 onClick={() => { window.location.href = '/login?fromRoute=' + window.location.pathname }}
                                 className="px-4 py-2 text-white transition-colors bg-blue-600 rounded-md hover:bg-blue-700"

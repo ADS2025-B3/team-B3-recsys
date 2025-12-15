@@ -1,13 +1,62 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import SearchInput from '../components/SearchInput'
 import MovieList from '../components/MovieList'
-import { searchMovies } from '../services/movieService'
+import { searchMovies, getUserRecommendations, getGlobalRecommendations } from '../services/movieService'
+import { useSession } from '../context/SessionContext'
 
 function SearchPage() {
+    const { isAuthenticated, token } = useSession()
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [hasSearched, setHasSearched] = useState(false)
+    const [userRecommendations, setUserRecommendations] = useState([])
+    const [globalRecommendations, setGlobalRecommendations] = useState([])
+    const [loadingRecs, setLoadingRecs] = useState(false)
+
+    useEffect(() => {
+        const fetchRecommendations = async () => {
+            setLoadingRecs(true)
+
+            // Fetch global recommendations
+            try {
+                const globalResults = await getGlobalRecommendations()
+                const globalParsed = globalResults.map((movie) => ({
+                    id: movie.id,
+                    title: movie.title,
+                    release_year: movie.release_year,
+                    genres: movie.genres?.split('|') || [],
+                    average_rating: movie.average_rating,
+                    rating_count: movie.rating_count
+                }))
+                setGlobalRecommendations(globalParsed)
+            } catch (err) {
+                setGlobalRecommendations([])
+            }
+
+            // Fetch user recommendations if authenticated
+            if (isAuthenticated && token) {
+                try {
+                    const userResults = await getUserRecommendations(token)
+                    const userParsed = userResults.map((movie) => ({
+                        id: movie.id,
+                        title: movie.title,
+                        release_year: movie.release_year,
+                        genres: movie.genres?.split('|') || [],
+                        average_rating: movie.average_rating,
+                        rating_count: movie.rating_count
+                    }))
+                    setUserRecommendations(userParsed)
+                } catch (err) {
+                    setUserRecommendations([])
+                }
+            }
+
+            setLoadingRecs(false)
+        }
+
+        fetchRecommendations()
+    }, [isAuthenticated, token])
 
     const handleSearch = useCallback(async (query) => {
         setLoading(true)
@@ -34,7 +83,8 @@ function SearchPage() {
     }, [])
 
     return (
-        <div className={`flex flex-col h-full space-y-8 ${hasSearched ? 'justify-start' : 'justify-center'}`}>
+        <div className={`flex flex-col h-full space-y-8 
+        ${hasSearched || userRecommendations.length > 0 || globalRecommendations.length > 0 ? 'justify-start' : 'justify-center'}`}>
             {/* Hero Section */}
             <div className="space-y-4 text-center">
                 <h1 className="text-4xl font-bold text-white">
@@ -66,27 +116,26 @@ function SearchPage() {
                 )}
 
                 {!hasSearched && (
-                    <div className="py-12 text-center">
-                        <svg
-                            className="w-24 h-24 mx-auto text-gray-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-                            />
-                        </svg>
-                        <h3 className="mt-4 text-lg font-medium text-white">
-                            Start Your Search
-                        </h3>
-                        <p className="mt-2 text-gray-400">
-                            Enter a movie title in the search box above to get started
-                        </p>
-                    </div>
+                    <>
+                        {/* User Recommendations Section */}
+                        {isAuthenticated && userRecommendations.length > 0 && (
+                            <div className="pb-8">
+                                <h2 className="mb-4 text-2xl font-semibold text-white">
+                                    Recommended for You
+                                </h2>
+                                <MovieList movies={userRecommendations} loading={loadingRecs} />
+                            </div>
+                        )}
+
+                        {/* Global Recommendations Section */}
+                        {globalRecommendations.length > 0 &&
+                            <div className="pb-8">
+                                <h2 className="mb-4 text-2xl font-semibold text-white">
+                                    Top 10 Global Recommendations
+                                </h2>
+                                <MovieList movies={globalRecommendations} loading={loadingRecs} />
+                            </div>}
+                    </>
                 )}
             </div>
         </div>
