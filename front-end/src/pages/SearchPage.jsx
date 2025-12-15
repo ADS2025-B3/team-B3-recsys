@@ -38,7 +38,7 @@ function SearchPage() {
             {/* Hero Section */}
             <div className="space-y-4 text-center">
                 <h1 className="text-4xl font-bold text-white">
-                    Discover Your Next Favorite Movie
+                    ¡ Discover Your Next Favorite Movie !
                 </h1>
                 <p className="text-lg text-gray-400">
                     Search from thousands of movies and get personalized recommendations
