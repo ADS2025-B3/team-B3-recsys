@@ -10,9 +10,9 @@ class HybridRecommender:
     - Explicit genre preferences
     """
     
-    def __init__(self, svd_model, movies_catalog):
+    def __init__(self, svd_model, movies_catalog_path):
         self.svd_model = svd_model
-        self.movies_catalog = movies_catalog
+        self.movies_catalog = pd.read_csv(movies_catalog_path)
         
         self.genre_cols = [
             "unknown", "Action", "Adventure", "Animation", "Children",
@@ -20,6 +20,12 @@ class HybridRecommender:
             "Film-Noir", "Horror", "Musical", "Mystery", "Romance",
             "Sci-Fi", "Thriller", "War", "Western"
         ]
+        
+        # Convert pipe-separated genres to binary columns
+        for genre in self.genre_cols:
+            self.movies_catalog[genre] = self.movies_catalog['genres'].apply(
+                lambda x: 1 if genre in str(x).split('|') else 0
+            )
         
         self.movie_features = self.movies_catalog[['movie_id'] + self.genre_cols].set_index('movie_id')
     
