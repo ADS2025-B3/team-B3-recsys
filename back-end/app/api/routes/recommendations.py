@@ -3,7 +3,6 @@ Recommendations API endpoints using MLflow models
 """
 from typing import List
 from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
 from app.services.ml_model import ml_service
 from app.api.deps import get_current_user, SessionDep
 from app.models.user import User

@@ -6,9 +6,8 @@ import mlflow
 import mlflow.sklearn
 from typing import Optional, Any, Dict, List, Tuple
 from app.core.config import settings
-from app.models.HybridRecommender import HybridRecommender
+from app.services.recommenders.HybridRecommender import HybridRecommender
 import logging
-import pandas as pd
 
 logger = logging.getLogger(__name__)
 

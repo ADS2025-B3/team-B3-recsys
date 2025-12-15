@@ -120,3 +120,60 @@
 2025-12-16 00:24:29,019 - INFO - ML models loaded: 1/2 successful
 2025-12-16 00:24:29,019 - INFO -   ✓ svd_model: loaded
 2025-12-16 00:24:29,019 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:40:25,928 - INFO - Loading ML models from MLflow...
+2025-12-16 00:40:25,928 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:40:45,831 - ERROR - Error loading svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:40:45,831 - WARNING - Failed to load svd_model: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:40:45,831 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:41:07,480 - ERROR - Error loading similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:07,480 - WARNING - Failed to load similar_items: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:07,480 - INFO - ML models loaded: 0/2 successful
+2025-12-16 00:41:07,480 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:07,480 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:10,338 - INFO - Loading ML models from MLflow...
+2025-12-16 00:41:10,338 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:41:29,250 - ERROR - Error loading svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:29,250 - WARNING - Failed to load svd_model: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:29,250 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:41:49,170 - ERROR - Error loading similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:49,170 - WARNING - Failed to load similar_items: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:49,170 - INFO - ML models loaded: 0/2 successful
+2025-12-16 00:41:49,170 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:49,171 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:52,092 - INFO - Loading ML models from MLflow...
+2025-12-16 00:41:52,092 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:42:11,312 - ERROR - Error loading svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:11,312 - WARNING - Failed to load svd_model: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:11,312 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:42:27,941 - ERROR - Error loading similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:27,941 - WARNING - Failed to load similar_items: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:27,941 - INFO - ML models loaded: 0/2 successful
+2025-12-16 00:42:27,941 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:27,941 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:45:58,668 - INFO - Loading ML models from MLflow...
+2025-12-16 00:45:58,668 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:46:08,164 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 00:46:08,164 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 00:46:08,164 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:46:26,000 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:46:26,000 - INFO - ML models loaded: 1/2 successful
+2025-12-16 00:46:26,001 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: pickle data was truncated
+2025-12-16 00:46:26,001 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:46:29,159 - INFO - Loading ML models from MLflow...
+2025-12-16 00:46:29,160 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:46:44,896 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:46:44,942 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:46:44,942 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:47:02,188 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:47:02,188 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:47:02,188 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:47:02,188 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:47:05,212 - INFO - Loading ML models from MLflow...
+2025-12-16 00:47:05,212 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:47:21,310 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:47:21,343 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:47:21,344 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:47:37,145 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:47:37,146 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:47:37,146 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:47:37,146 - INFO -   ✓ similar_items: loaded
