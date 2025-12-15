@@ -45,24 +45,28 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
-          echo "FRONTEND_CHANGED=false" >> $GITHUB_ENV
-          echo "BACKEND_CHANGED=false" >> $GITHUB_ENV
+          FRONTEND_CHANGED=false
+          BACKEND_CHANGED=false
 
           if echo "$CHANGED_FILES" | grep -q "^front-end/"; then
-            echo "FRONTEND_CHANGED=true" >> $GITHUB_ENV
+            FRONTEND_CHANGED=true
           fi
 
           if echo "$CHANGED_FILES" | grep -q "^back-end/"; then
-            echo "BACKEND_CHANGED=true" >> $GITHUB_ENV
+            BACKEND_CHANGED=true
           fi
 
           # Shared files trigger both
           if echo "$CHANGED_FILES" | grep -qE "^(docker-compose.yml|\.env)"; then
-            echo "FRONTEND_CHANGED=true" >> $GITHUB_ENV
-            echo "BACKEND_CHANGED=true" >> $GITHUB_ENV
+            FRONTEND_CHANGED=true
+            BACKEND_CHANGED=true
           fi
+
           echo "Frontend changed: $FRONTEND_CHANGED"
           echo "Backend changed: $BACKEND_CHANGED"
+
+          echo "FRONTEND_CHANGED=$FRONTEND_CHANGED" >> $GITHUB_ENV
+          echo "BACKEND_CHANGED=$BACKEND_CHANGED" >> $GITHUB_ENV
 
       - name: Deploy backend
         if: env.BACKEND_CHANGED == 'true'
