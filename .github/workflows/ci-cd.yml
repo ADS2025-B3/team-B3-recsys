@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -27,7 +29,21 @@ jobs:
 
       - name: Detect changed components
         run: |
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+
+          echo "BEFORE=$BEFORE"
+          echo "AFTER=$AFTER"
+
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "First commit or forced push detected"
+            CHANGED_FILES=$(git ls-files)
+          else
+            CHANGED_FILES=$(git diff --name-only "$BEFORE" "$AFTER")
+          fi
+
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
 
           echo "FRONTEND_CHANGED=false" >> $GITHUB_ENV
           echo "BACKEND_CHANGED=false" >> $GITHUB_ENV
@@ -40,10 +56,20 @@ jobs:
             echo "BACKEND_CHANGED=true" >> $GITHUB_ENV
           fi
 
+          # Shared files trigger both
+          if echo "$CHANGED_FILES" | grep -qE "^(docker-compose.yml|\.env)"; then
+            echo "FRONTEND_CHANGED=true" >> $GITHUB_ENV
+            echo "BACKEND_CHANGED=true" >> $GITHUB_ENV
+          fi
+
       - name: Deploy backend
         if: env.BACKEND_CHANGED == 'true'
-        run: curl -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+        run: |
+          echo "Deploying backend to Render..."
+          curl -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
 
       - name: Deploy frontend
         if: env.FRONTEND_CHANGED == 'true'
-        run: curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
+        run: |
+          echo "Deploying frontend to Render..."
+          curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
