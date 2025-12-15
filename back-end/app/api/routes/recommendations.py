@@ -54,7 +54,7 @@ def get_global_recommendations(
     """
     try:
         # Get top movie IDs from ML model
-        movie_ids = ml_service.get_top_movies(n=n)
+        movie_ids = ml_service.get_popular_movies(n=n)
         
         # Get movie details from database
         movies = []
@@ -111,58 +111,8 @@ def get_similar_movies(
         raise HTTPException(status_code=500, detail=f"Failed to get recommendations: {str(e)}")
 
 
-@router.get("/movies/{movie_id}/predict")
-def predict_movie_rating(
-    session: SessionDep,
-    movie_id: int,
-    current_user: User = Depends(get_current_user)
-):
-    """
-    Predict the rating a user would give to a movie
-    """
-    try:
-        predicted_score = ml_service.predict_score(
-            user_id=current_user.id,
-            item_id=movie_id
-        )
-        
-        return {
-            "movie_id": movie_id,
-            "predicted_rating": float(predicted_score)
-        }
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
-
-@router.get("/movies/{movie_id}/similar", response_model=List[MovieRead])
-def get_similar_movies(
-    session: SessionDep,
-    movie_id: int,
-    n: int = 10
-):
-    """
-    Get similar movies based on a movie ID
-    """
-    try:
-        # Get similar movie IDs from ML model
-        similar_items = ml_service.recommend_similar_items(item_id=movie_id, n=n)
-        
-        # Get movie details from database
-        movie_ids = [item_id for item_id, score in similar_items]
-        movies = []
-        for mid in movie_ids:
-            movie = crud.movie.movie_crud.get(session, mid)
-            if movie:
-                movies.append(movie)
-        
-        return movies
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get recommendations: {str(e)}")
-
+    
 
 @router.get("/movies/{movie_id}/predict")
 def predict_movie_rating(
@@ -174,14 +124,18 @@ def predict_movie_rating(
     Predict the rating a user would give to a movie
     """
     try:
-        predicted_score = ml_service.predict_score(
+        result = ml_service.predict_score(
             user_id=current_user.id,
             item_id=movie_id
         )
         
+        if result is None:
+            raise HTTPException(status_code=404, detail="Prediction not available")
+
         return {
             "movie_id": movie_id,
-            "predicted_rating": float(predicted_score)
+            "predicted_rating": result["predicted_rating"],
+            "confidence": result.get("confidence")
         }
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

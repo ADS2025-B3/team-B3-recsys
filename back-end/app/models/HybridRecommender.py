@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
+from app.core.constants import MOVIE_GENRES
 
 class HybridRecommender:
     """
@@ -13,13 +14,7 @@ class HybridRecommender:
     def __init__(self, svd_model, movies_catalog_path):
         self.svd_model = svd_model
         self.movies_catalog = pd.read_csv(movies_catalog_path)
-        
-        self.genre_cols = [
-            "unknown", "Action", "Adventure", "Animation", "Children",
-            "Comedy", "Crime", "Documentary", "Drama", "Fantasy",
-            "Film-Noir", "Horror", "Musical", "Mystery", "Romance",
-            "Sci-Fi", "Thriller", "War", "Western"
-        ]
+        self.genre_cols = MOVIE_GENRES
         
         # Convert pipe-separated genres to binary columns
         for genre in self.genre_cols:

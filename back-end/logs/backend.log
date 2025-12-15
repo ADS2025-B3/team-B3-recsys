@@ -4,3 +4,119 @@
 2025-12-03 19:11:24,239 - INFO - Initializing service
 2025-12-03 19:11:24,239 - INFO - Starting call to '__main__.init', this is the 1st time calling it.
 2025-12-03 19:11:27,012 - INFO - Service finished initializing
+2025-12-15 23:09:41,676 - INFO - Loading ML models from MLflow...
+2025-12-15 23:09:41,676 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-15 23:13:00,540 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-15 23:13:00,579 - INFO - HybridRecommender initialized successfully
+2025-12-15 23:13:00,579 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-15 23:15:36,503 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-15 23:15:36,503 - INFO - ML models loaded: 2/2 successful
+2025-12-15 23:15:36,503 - INFO -   ✓ svd_model: loaded
+2025-12-15 23:15:36,503 - INFO -   ✓ similar_items: loaded
+2025-12-15 23:25:39,399 - INFO - Loading ML models from MLflow...
+2025-12-15 23:25:39,399 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-15 23:27:37,848 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-15 23:27:37,891 - INFO - HybridRecommender initialized successfully
+2025-12-15 23:27:37,891 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-15 23:29:25,110 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-15 23:29:25,110 - INFO - ML models loaded: 2/2 successful
+2025-12-15 23:29:25,110 - INFO -   ✓ svd_model: loaded
+2025-12-15 23:29:25,110 - INFO -   ✓ similar_items: loaded
+2025-12-15 23:41:31,488 - INFO - Loading ML models from MLflow...
+2025-12-15 23:41:31,489 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-15 23:41:56,839 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-15 23:41:56,875 - INFO - HybridRecommender initialized successfully
+2025-12-15 23:41:56,876 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-15 23:42:25,578 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-15 23:42:25,578 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-15 23:42:25,579 - INFO - ML models loaded: 1/2 successful
+2025-12-15 23:42:25,579 - INFO -   ✓ svd_model: loaded
+2025-12-15 23:42:25,579 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:02:49,236 - INFO - Loading ML models from MLflow...
+2025-12-16 00:02:49,236 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:03:09,039 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:03:09,078 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:03:09,078 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:03:28,071 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:03:28,071 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:03:28,071 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:03:28,071 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:03:31,198 - INFO - Loading ML models from MLflow...
+2025-12-16 00:03:31,198 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:03:47,924 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:03:47,974 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:03:47,975 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:04:04,151 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:04:04,152 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:04:04,152 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:04:04,152 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:04:07,481 - INFO - Loading ML models from MLflow...
+2025-12-16 00:04:07,481 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:04:31,220 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:04:31,256 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:04:31,256 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:04:48,075 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:04:48,075 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:04:48,075 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:04:48,075 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:06:55,991 - INFO - Loading ML models from MLflow...
+2025-12-16 00:06:55,991 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:07:12,974 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:07:13,014 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:07:13,015 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:07:32,982 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:07:32,982 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:07:32,982 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:07:32,982 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:07:35,754 - INFO - Loading ML models from MLflow...
+2025-12-16 00:07:35,754 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:07:51,425 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:07:51,461 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:07:51,461 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:08:08,533 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:08:08,533 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:08:08,534 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:08:08,534 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:12:45,249 - INFO - Loading ML models from MLflow...
+2025-12-16 00:12:45,249 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:13:06,816 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:13:06,857 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:13:06,857 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:13:17,709 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-16 00:13:17,709 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:13:17,709 - INFO - ML models loaded: 1/2 successful
+2025-12-16 00:13:17,709 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:13:17,709 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:13:20,649 - INFO - Loading ML models from MLflow...
+2025-12-16 00:13:20,649 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:13:42,528 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:13:42,574 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:13:42,574 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:14:01,377 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:14:01,377 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:14:01,377 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:14:01,377 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:19:00,771 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:19:18,653 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:19:18,693 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:19:18,694 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:19:26,265 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-16 00:19:26,265 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:19:37,793 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:19:54,285 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:19:54,327 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:19:54,327 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:20:12,911 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:21:10,437 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:21:30,391 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:21:30,435 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:24:04,246 - INFO - Loading ML models from MLflow...
+2025-12-16 00:24:04,246 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:24:23,239 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:24:23,277 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:24:23,277 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:24:29,018 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-16 00:24:29,018 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:24:29,019 - INFO - ML models loaded: 1/2 successful
+2025-12-16 00:24:29,019 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:24:29,019 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
