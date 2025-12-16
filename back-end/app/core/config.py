@@ -54,7 +54,8 @@ class Settings(BaseSettings):
     DOMAIN: str = "localhost"
     FRONTEND_HOST: str = "http://localhost:3000"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
-
+    BASE_DIR: str = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    
     @computed_field  # type: ignore[misc]
     @property
     def server_host(self) -> str:
@@ -97,6 +98,11 @@ class Settings(BaseSettings):
 
     FIRST_SUPERUSER: str
     FIRST_SUPERUSER_PASSWORD: str
+    
+    # MLflow Configuration (loaded from .env)
+    MLFLOW_TRACKING_URI: str
+    MLFLOW_TRACKING_USERNAME: str  
+    MLFLOW_TRACKING_PASSWORD: str 
 
     def _check_default_secret(self, var_name: str, value: str | None) -> None:
         if value == "changethis":

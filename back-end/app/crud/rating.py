@@ -56,6 +56,15 @@ class RatingCRUD:
     ) -> List[Rating]:
         statement = select(Rating).where(Rating.user_id == user_id)
         return session.exec(statement).all()
+    
+    def get_user_rated_movie_ids(
+        self,
+        session: Session,
+        user_id: int
+    ) -> List[tuple[int, float]]:
+        """Get list of (movie_id, rating) tuples for a user"""
+        ratings = self.list_user_ratings(session, user_id)
+        return [(r.movie_id, r.rating) for r in ratings]
 
 
 rating_crud = RatingCRUD()
