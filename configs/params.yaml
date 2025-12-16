@@ -1,8 +1,8 @@
 # configs/params.yaml
 main:
   project_name: "movie_recsys_v1"
-  experiment_name: "baseline_random_forest"
-  tracking_uri: "http://localhost:5500"  # El puerto de tu docker-compose
+  experiment_name: "hybrid_recommender_experiment"
+  tracking_uri: "http://localhost:5500" # El puerto de tu docker-compose
   random_seed: 42
 
 data:
@@ -15,11 +15,10 @@ model:
     n_estimators: 100
     max_depth: 10
     criterion: "gini"
-  
-svd_model:
-  num_components: 15     # Number of latent factors
-  top_n: 10              # Default number of recommendations
 
+svd_model:
+  num_components: 15 # Number of latent factors
+  top_n: 10 # Default number of recommendations
 
 item_rec_model:
   num_components: 15

@@ -4,3 +4,479 @@
 2025-12-03 19:11:24,239 - INFO - Initializing service
 2025-12-03 19:11:24,239 - INFO - Starting call to '__main__.init', this is the 1st time calling it.
 2025-12-03 19:11:27,012 - INFO - Service finished initializing
+2025-12-15 23:09:41,676 - INFO - Loading ML models from MLflow...
+2025-12-15 23:09:41,676 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-15 23:13:00,540 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-15 23:13:00,579 - INFO - HybridRecommender initialized successfully
+2025-12-15 23:13:00,579 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-15 23:15:36,503 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-15 23:15:36,503 - INFO - ML models loaded: 2/2 successful
+2025-12-15 23:15:36,503 - INFO -   ✓ svd_model: loaded
+2025-12-15 23:15:36,503 - INFO -   ✓ similar_items: loaded
+2025-12-15 23:25:39,399 - INFO - Loading ML models from MLflow...
+2025-12-15 23:25:39,399 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-15 23:27:37,848 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-15 23:27:37,891 - INFO - HybridRecommender initialized successfully
+2025-12-15 23:27:37,891 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-15 23:29:25,110 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-15 23:29:25,110 - INFO - ML models loaded: 2/2 successful
+2025-12-15 23:29:25,110 - INFO -   ✓ svd_model: loaded
+2025-12-15 23:29:25,110 - INFO -   ✓ similar_items: loaded
+2025-12-15 23:41:31,488 - INFO - Loading ML models from MLflow...
+2025-12-15 23:41:31,489 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-15 23:41:56,839 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-15 23:41:56,875 - INFO - HybridRecommender initialized successfully
+2025-12-15 23:41:56,876 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-15 23:42:25,578 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-15 23:42:25,578 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-15 23:42:25,579 - INFO - ML models loaded: 1/2 successful
+2025-12-15 23:42:25,579 - INFO -   ✓ svd_model: loaded
+2025-12-15 23:42:25,579 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:02:49,236 - INFO - Loading ML models from MLflow...
+2025-12-16 00:02:49,236 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:03:09,039 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:03:09,078 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:03:09,078 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:03:28,071 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:03:28,071 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:03:28,071 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:03:28,071 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:03:31,198 - INFO - Loading ML models from MLflow...
+2025-12-16 00:03:31,198 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:03:47,924 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:03:47,974 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:03:47,975 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:04:04,151 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:04:04,152 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:04:04,152 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:04:04,152 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:04:07,481 - INFO - Loading ML models from MLflow...
+2025-12-16 00:04:07,481 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:04:31,220 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:04:31,256 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:04:31,256 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:04:48,075 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:04:48,075 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:04:48,075 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:04:48,075 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:06:55,991 - INFO - Loading ML models from MLflow...
+2025-12-16 00:06:55,991 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:07:12,974 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:07:13,014 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:07:13,015 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:07:32,982 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:07:32,982 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:07:32,982 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:07:32,982 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:07:35,754 - INFO - Loading ML models from MLflow...
+2025-12-16 00:07:35,754 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:07:51,425 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:07:51,461 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:07:51,461 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:08:08,533 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:08:08,533 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:08:08,534 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:08:08,534 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:12:45,249 - INFO - Loading ML models from MLflow...
+2025-12-16 00:12:45,249 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:13:06,816 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:13:06,857 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:13:06,857 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:13:17,709 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-16 00:13:17,709 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:13:17,709 - INFO - ML models loaded: 1/2 successful
+2025-12-16 00:13:17,709 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:13:17,709 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:13:20,649 - INFO - Loading ML models from MLflow...
+2025-12-16 00:13:20,649 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:13:42,528 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:13:42,574 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:13:42,574 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:14:01,377 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:14:01,377 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:14:01,377 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:14:01,377 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:19:00,771 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:19:18,653 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:19:18,693 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:19:18,694 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:19:26,265 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-16 00:19:26,265 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:19:37,793 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:19:54,285 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:19:54,327 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:19:54,327 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:20:12,911 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:21:10,437 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:21:30,391 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:21:30,435 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:24:04,246 - INFO - Loading ML models from MLflow...
+2025-12-16 00:24:04,246 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:24:23,239 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:24:23,277 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:24:23,277 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:24:29,018 - ERROR - Error loading similar_items model: pickle data was truncated
+2025-12-16 00:24:29,018 - WARNING - Failed to load similar_items: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:24:29,019 - INFO - ML models loaded: 1/2 successful
+2025-12-16 00:24:29,019 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:24:29,019 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: pickle data was truncated
+2025-12-16 00:40:25,928 - INFO - Loading ML models from MLflow...
+2025-12-16 00:40:25,928 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:40:45,831 - ERROR - Error loading svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:40:45,831 - WARNING - Failed to load svd_model: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:40:45,831 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:41:07,480 - ERROR - Error loading similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:07,480 - WARNING - Failed to load similar_items: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:07,480 - INFO - ML models loaded: 0/2 successful
+2025-12-16 00:41:07,480 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:07,480 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:10,338 - INFO - Loading ML models from MLflow...
+2025-12-16 00:41:10,338 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:41:29,250 - ERROR - Error loading svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:29,250 - WARNING - Failed to load svd_model: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:29,250 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:41:49,170 - ERROR - Error loading similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:49,170 - WARNING - Failed to load similar_items: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:49,170 - INFO - ML models loaded: 0/2 successful
+2025-12-16 00:41:49,170 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:49,171 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:41:52,092 - INFO - Loading ML models from MLflow...
+2025-12-16 00:41:52,092 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:42:11,312 - ERROR - Error loading svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:11,312 - WARNING - Failed to load svd_model: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:11,312 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:42:27,941 - ERROR - Error loading similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:27,941 - WARNING - Failed to load similar_items: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:27,941 - INFO - ML models loaded: 0/2 successful
+2025-12-16 00:42:27,941 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: No module named 'app.models.svd_impl'
+2025-12-16 00:42:27,941 - WARNING -   ✗ similar_items: failed: Failed to load similar_items model: No module named 'app.models.svd_impl'
+2025-12-16 00:45:58,668 - INFO - Loading ML models from MLflow...
+2025-12-16 00:45:58,668 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:46:08,164 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 00:46:08,164 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 00:46:08,164 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:46:26,000 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:46:26,000 - INFO - ML models loaded: 1/2 successful
+2025-12-16 00:46:26,001 - WARNING -   ✗ svd_model: failed: Failed to load svd_model model: pickle data was truncated
+2025-12-16 00:46:26,001 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:46:29,159 - INFO - Loading ML models from MLflow...
+2025-12-16 00:46:29,160 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:46:44,896 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:46:44,942 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:46:44,942 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:47:02,188 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:47:02,188 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:47:02,188 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:47:02,188 - INFO -   ✓ similar_items: loaded
+2025-12-16 00:47:05,212 - INFO - Loading ML models from MLflow...
+2025-12-16 00:47:05,212 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 00:47:21,310 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 00:47:21,343 - INFO - HybridRecommender initialized successfully
+2025-12-16 00:47:21,344 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 00:47:37,145 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 00:47:37,146 - INFO - ML models loaded: 2/2 successful
+2025-12-16 00:47:37,146 - INFO -   ✓ svd_model: loaded
+2025-12-16 00:47:37,146 - INFO -   ✓ similar_items: loaded
+2025-12-16 13:09:11,249 - INFO - Loading ML models from MLflow...
+2025-12-16 13:09:11,249 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:09:28,165 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:09:28,205 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:09:28,206 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:09:39,131 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:09:39,131 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:12:36,697 - INFO - Loading ML models from MLflow...
+2025-12-16 13:12:36,697 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:12:48,131 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:12:48,151 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:12:48,151 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:12:57,754 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:12:57,754 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:13:51,691 - INFO - Loading ML models from MLflow...
+2025-12-16 13:13:51,691 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:14:03,334 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:14:03,354 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:14:03,355 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:14:14,177 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:14:14,179 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:14:17,265 - INFO - Loading ML models from MLflow...
+2025-12-16 13:14:17,265 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:14:28,604 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:14:28,624 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:14:28,626 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:14:38,779 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:14:38,780 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:17:39,918 - INFO - Loading ML models from MLflow...
+2025-12-16 13:17:39,918 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:17:53,136 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:17:53,155 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:17:53,155 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:18:03,966 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:18:03,966 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:18:05,598 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 13:20:43,005 - INFO - Loading ML models from MLflow...
+2025-12-16 13:20:43,005 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:20:59,020 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:20:59,042 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:20:59,044 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:21:10,886 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:21:10,886 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:25:02,231 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 13:39:33,992 - INFO - Loading ML models from MLflow...
+2025-12-16 13:39:33,992 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:39:45,102 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:39:45,122 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:39:45,122 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:39:55,326 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:39:55,326 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:39:58,590 - INFO - Loading ML models from MLflow...
+2025-12-16 13:39:58,590 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:40:07,263 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 13:40:07,263 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 13:40:07,263 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:40:22,738 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:40:22,738 - INFO - ML models loaded: 1/2 successful
+2025-12-16 13:40:25,733 - INFO - Loading ML models from MLflow...
+2025-12-16 13:40:25,733 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:40:37,012 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:40:37,032 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:40:37,032 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:40:47,353 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:40:47,353 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:41:09,156 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 13:42:28,483 - INFO - Loading ML models from MLflow...
+2025-12-16 13:42:28,483 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:42:39,667 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:42:39,689 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:42:39,689 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:42:55,033 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:42:55,033 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:42:58,113 - INFO - Loading ML models from MLflow...
+2025-12-16 13:42:58,113 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:43:09,701 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:43:09,719 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:43:09,719 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:43:20,945 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:43:20,945 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:49:33,660 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 13:51:02,765 - INFO - Loading ML models from MLflow...
+2025-12-16 13:51:02,765 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:51:14,652 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 13:51:14,677 - INFO - HybridRecommender initialized successfully
+2025-12-16 13:51:14,677 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:51:25,382 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:51:25,382 - INFO - ML models loaded: 2/2 successful
+2025-12-16 13:51:34,491 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 13:52:08,405 - INFO - Loading ML models from MLflow...
+2025-12-16 13:52:08,405 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 13:52:16,000 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 13:52:16,000 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 13:52:16,000 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 13:52:27,469 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 13:52:27,498 - INFO - ML models loaded: 1/2 successful
+2025-12-16 14:03:04,803 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:08:45,996 - INFO - Loading ML models from MLflow...
+2025-12-16 14:08:45,996 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:08:59,214 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:08:59,232 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:08:59,233 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:09:10,016 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:09:10,016 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:10:34,584 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:12:08,592 - INFO - Loading ML models from MLflow...
+2025-12-16 14:12:08,592 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:12:26,953 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:12:26,973 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:12:26,973 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:12:39,573 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:12:39,573 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:13:00,129 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:14:44,512 - INFO - Loading ML models from MLflow...
+2025-12-16 14:14:44,512 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:14:58,067 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:14:58,085 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:14:58,086 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:15:11,690 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:15:11,690 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:15:13,799 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:17:42,029 - INFO - Loading ML models from MLflow...
+2025-12-16 14:17:42,029 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:17:50,063 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 14:17:50,063 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 14:17:50,063 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:18:01,685 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:18:01,685 - INFO - ML models loaded: 1/2 successful
+2025-12-16 14:18:04,495 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:19:01,274 - INFO - Loading ML models from MLflow...
+2025-12-16 14:19:01,275 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:19:17,744 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:19:17,765 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:19:17,765 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:19:27,791 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:19:27,792 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:19:30,742 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:21:21,830 - INFO - Loading ML models from MLflow...
+2025-12-16 14:21:21,830 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:21:29,847 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 14:21:29,848 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 14:21:29,848 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:21:41,101 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:21:41,101 - INFO - ML models loaded: 1/2 successful
+2025-12-16 14:21:47,931 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:22:31,823 - INFO - Loading ML models from MLflow...
+2025-12-16 14:22:31,823 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:22:42,817 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:22:42,841 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:22:42,841 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:22:54,775 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:22:54,776 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:23:01,861 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:24:22,123 - INFO - Loading ML models from MLflow...
+2025-12-16 14:24:22,123 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:24:35,803 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:24:35,822 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:24:35,822 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:24:47,086 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:24:47,087 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:24:52,242 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:49:13,598 - INFO - Loading ML models from MLflow...
+2025-12-16 14:49:13,598 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:49:25,980 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:49:26,000 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:49:26,000 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:49:37,219 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:49:37,220 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:49:54,447 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 14:53:06,392 - INFO - Loading ML models from MLflow...
+2025-12-16 14:53:06,392 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 14:53:19,883 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 14:53:19,902 - INFO - HybridRecommender initialized successfully
+2025-12-16 14:53:19,902 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 14:53:31,443 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 14:53:31,443 - INFO - ML models loaded: 2/2 successful
+2025-12-16 14:53:34,670 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 15:01:42,816 - INFO - Loading ML models from MLflow...
+2025-12-16 15:01:42,816 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 15:01:58,980 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 15:01:58,998 - INFO - HybridRecommender initialized successfully
+2025-12-16 15:01:58,998 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 15:02:11,593 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 15:02:11,593 - INFO - ML models loaded: 2/2 successful
+2025-12-16 15:02:29,212 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 15:06:34,338 - INFO - Loading ML models from MLflow...
+2025-12-16 15:06:34,338 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 15:06:41,699 - ERROR - Error loading svd_model model: pickle data was truncated
+2025-12-16 15:06:41,700 - WARNING - Failed to load svd_model: Failed to load svd_model model: pickle data was truncated
+2025-12-16 15:06:41,700 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 15:06:54,615 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 15:06:54,615 - INFO - ML models loaded: 1/2 successful
+2025-12-16 15:07:22,406 - INFO - Loading ML models from MLflow...
+2025-12-16 15:07:22,406 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 15:07:36,107 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 15:07:36,126 - INFO - HybridRecommender initialized successfully
+2025-12-16 15:07:36,126 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 15:07:47,969 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 15:07:47,969 - INFO - ML models loaded: 2/2 successful
+2025-12-16 15:08:02,820 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-12-16 15:31:15,601 - INFO - Loading ML models from MLflow...
+2025-12-16 15:31:15,601 - INFO - Loading svd_model model from: models:/MovieRatingPredictModel/latest
+2025-12-16 15:31:28,231 - INFO - Model loaded successfully: MovieRatingPredictModel (latest) as svd_model
+2025-12-16 15:31:28,249 - INFO - HybridRecommender initialized successfully
+2025-12-16 15:31:28,249 - INFO - Loading similar_items model from: models:/MovieSimilarRecommenderModel/latest
+2025-12-16 15:31:45,717 - INFO - Model loaded successfully: MovieSimilarRecommenderModel (latest) as similar_items
+2025-12-16 15:31:45,717 - INFO - ML models loaded: 2/2 successful
+2025-12-16 15:32:12,216 - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "F:\team-B3-recsys\venv\bin\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
