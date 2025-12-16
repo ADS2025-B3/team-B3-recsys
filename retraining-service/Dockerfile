@@ -8,8 +8,12 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
+    git \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Silence Git warnings in environments without repo metadata
+ENV GIT_PYTHON_REFRESH=quiet
 
 # Copy requirements first for better layer caching
 COPY requirements.txt .
