@@ -90,6 +90,7 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
             setError(err.message || 'Failed to save preferences')
         } finally {
             setSaving(false)
+
         }
     }
 
@@ -156,7 +157,7 @@ function PreferencesModal({ isOpen, onClose, open, existingPreferences = null, i
                         </div>
 
                         {selectedGenres.length > 0 && (
-                            <div className="p-3 mb-4 rounded-md bg-gray-700">
+                            <div className="p-3 mb-4 bg-gray-700 rounded-md">
                                 <p className="text-sm font-medium text-gray-300">
                                     Selected: {selectedGenres.join(', ')}
                                 </p>

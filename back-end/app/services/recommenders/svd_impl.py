@@ -30,7 +30,6 @@ class SVDCF:
         :param df_train: Pandas DataFrame with columns ['user_id', 'movie_id', 'rating']
         """
         self.train = df_train
-        self.global_mean = df_train['rating'].mean()
         
         # Create Pivot Table (User-Item Matrix)
         # Note: In production, sparse matrices are better, but we stick to the notebook approach for now
@@ -87,28 +86,12 @@ class SVDCF:
 
     def predict_score(self, user_id, movie_id):
         """ Returns the predicted rating for a specific user and movie. """
-        
-        # Case 1: Both user and movie are known
         if movie_id in self.movies_id2index and user_id in self.users_id2index:
             user_idx = self.users_id2index[user_id]
             movie_idx = self.movies_id2index[movie_id]
             return self.Y_hat[user_idx, movie_idx]
-        
-        # Case 2: Movie known, user new → use movie average
-        elif movie_id in self.movies_id2index and user_id not in self.users_id2index:
-            movie_idx = self.movies_id2index[movie_id]
-            movie_avg = np.nanmean(self.urm.iloc[:, movie_idx])
-            return movie_avg if not np.isnan(movie_avg) else self.global_mean
-        
-        # Case 3 : User known, movie new → use user average
-        elif user_id in self.users_id2index and movie_id not in self.movies_id2index:
-            user_idx = self.users_id2index[user_id]
-            user_avg = np.nanmean(self.Y_hat[user_idx, :])
-            return user_avg if not np.isnan(user_avg) else self.global_mean
-        
-        # Case 4: Both new → global average
         else:
-            return self.global_mean
+            return 0 # Cold start or unknown item
 
     def recommend_top_n(self, user_id, n=5):
         """

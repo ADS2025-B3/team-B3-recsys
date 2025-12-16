@@ -51,7 +51,7 @@ export const getMovieById = async (id) => {
  */
 export const getMovieRecommendations = async (id) => {
     try {
-        const response = await api.get(`/movies/${id}/recommendations`)
+        const response = await api.get(`/recommendations/movies/${id}/similar`)
         return response.data
     } catch (error) {
         console.error('Error fetching movie recommendations:', error)
@@ -165,7 +165,7 @@ export const getGlobalRecommendations = async () => {
  */
 export const getPredictedRating = async (movieId, token) => {
     try {
-        const response = await api.get(`/movies/${movieId}/predict`, {
+        const response = await api.get(`/recommendations/movies/${movieId}/predict`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
