@@ -20,7 +20,6 @@ class MLModelService:
         self.hybrid_recommender: HybridRecommender
         
         # Set MLflow tracking URI and credentials
-        mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
         
         # Get credentials from settings (which loads from .env)
         username = settings.MLFLOW_TRACKING_USERNAME
@@ -35,6 +34,8 @@ class MLModelService:
             logger.warning("MLflow tracking credentials are not set.")
             logger.warning("If MLflow requires authentication, model loading will fail.")
         
+        mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
+        
         # Model names for different recommendation types
         self.model_names = {
             "svd_model": "MovieRatingPredictModel",
@@ -44,7 +45,7 @@ class MLModelService:
         # Path to movies catalog (required for HybridRecommender)
         self.movies_catalog_path = os.path.join(settings.BASE_DIR, "app", "data", "movies.csv")
     
-    def load_model(self, model_type: str, model_name: str = None, version: str = "latest"):
+    def load_model(self, model_type: str, model_name: str = None, version: str = "production"):
         """
         Load a specific model from MLflow Model Registry
         
@@ -61,8 +62,8 @@ class MLModelService:
         
         try:
             # Construct model URI
-            if version == "latest":
-                model_uri = f"models:/{model_name}/latest"
+            if version == "production":
+                model_uri = f"models:/{model_name}/production"
             elif version.isdigit():
                 model_uri = f"models:/{model_name}/{version}"
             else:
