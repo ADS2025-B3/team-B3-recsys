@@ -102,6 +102,14 @@ class HybridRecommender:
         :return: List of movie_ids
         """
         
+        print("User ratings:",len(user_ratings) if user_ratings else 0)
+        print("User preferences:",len(preferred_genres) if preferred_genres else 0)
+        
+        if(len(user_ratings or []) < 5):
+            genre_weight = 0.7
+            rating_weight = 0.3
+            print("Few ratings provided - increasing weight of genre preferences")
+            
         # 1. Build hybrid profile
         user_profile = self._build_user_profile_hybrid(
             user_ratings=user_ratings,
@@ -123,6 +131,7 @@ class HybridRecommender:
         
         # 3. (Optional) Diversity boost: penalize already recommended genres
         if diversity_boost:
+            print("Applying diversity boost to recommendations")
             similarities = self._apply_diversity_penalty(similarities, user_profile)
         
         # 4. Sort by similarity
@@ -149,7 +158,7 @@ class HybridRecommender:
         
         return recommendations
     
-    def _apply_diversity_penalty(self, similarities, user_profile, penalty_factor=0.1):
+    def _apply_diversity_penalty(self, similarities, user_profile, penalty_factor=0.2):
         """
         Penalizes movies from over-represented genres to increase diversity.
         """
@@ -180,7 +189,6 @@ class HybridRecommender:
     def _recommend_popular(self, n=10):
         """Fallback: most popular/best rated movies."""
         train_df = self.svd_model.train
-        
         movie_stats = train_df.groupby('movie_id').agg({
             'rating': ['mean', 'count']
         }).reset_index()
@@ -200,7 +208,6 @@ class HybridRecommender:
         )
         
         popular = popular.sort_values('bayesian_avg', ascending=False)
-        
         return popular['movie_id'].head(n).tolist()
     
     def predict_rating(self, user_id, movie_id, user_ratings=None, preferred_genres=None):

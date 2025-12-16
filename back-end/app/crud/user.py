@@ -28,9 +28,17 @@ def read_user_by_id(session: Session, user_id: int) -> User:
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
+    
+    max_id_statement = select(func.max(User.id))
+    max_id = session.exec(max_id_statement).one()
+    
+    MIN_ID = 10000
+    next_id = max(MIN_ID, (max_id or 0) + 1)
+    
     db_obj = User.model_validate(
-        user_create, update={"hashed_password": get_password_hash(user_create.password)}
+        user_create, update={"hashed_password": get_password_hash(user_create.password), "id": next_id}
     )
+    
     session.add(db_obj)
     session.commit()
     session.refresh(db_obj)

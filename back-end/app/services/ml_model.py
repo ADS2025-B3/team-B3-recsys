@@ -17,7 +17,7 @@ class MLModelService:
     
     def __init__(self):
         self.models: Dict[str, Any] = {}  # Dictionary to store multiple models
-        self.hybrid_recommender: Optional[HybridRecommender] = None
+        self.hybrid_recommender: HybridRecommender
         
         # Set MLflow tracking URI and credentials
         mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
@@ -154,7 +154,7 @@ class MLModelService:
                        preferred_genres: Optional[List[str]] = None,
                        genre_weight: float = 0.3,
                        rating_weight: float = 0.7,
-                       diversity_boost: bool = False):
+                       diversity_boost: bool = True):
         """
         Get top N personalized recommendations for a user using HybridRecommender
         Automatically handles both existing and new users
@@ -301,6 +301,7 @@ class MLModelService:
         
         try:
             popular_movies = self.hybrid_recommender._recommend_popular(n=n)
+            print(popular_movies)
             return popular_movies
         except Exception as e:
             logger.error(f"Popular movies error: {str(e)}")

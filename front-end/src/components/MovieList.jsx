@@ -1,6 +1,6 @@
 import MovieCard from './MovieCard'
 
-function MovieList({ movies, loading, showPredictedRating = false }) {
+function MovieList({ movies, loading, showPredictedRating = false, isAuthenticated }) {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-12">
@@ -35,7 +35,7 @@ function MovieList({ movies, loading, showPredictedRating = false }) {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className={`grid grid-cols-1 gap-6 overflow-y-auto  ${isAuthenticated ? 'xl:grid-cols-3 lg:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'}`}>
             {movies.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} showPredictedRating={showPredictedRating} />
             ))}
