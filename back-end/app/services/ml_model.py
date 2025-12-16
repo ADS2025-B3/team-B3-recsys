@@ -22,19 +22,7 @@ class MLModelService:
         # Set MLflow tracking URI and credentials
         
         # Get credentials from settings (which loads from .env)
-        username = settings.MLFLOW_TRACKING_USERNAME
-        password = settings.MLFLOW_TRACKING_PASSWORD
-        
-        # Set them for MLflow
-        if username and password:
-            os.environ["MLFLOW_TRACKING_USERNAME"] = username
-            os.environ["MLFLOW_TRACKING_PASSWORD"] = password
-            logger.info(f"MLflow tracking credentials loaded. Username: {username}")
-        else:
-            logger.warning("MLflow tracking credentials are not set.")
-            logger.warning("If MLflow requires authentication, model loading will fail.")
-        
-        mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
+        self.init_credentials()
         
         # Model names for different recommendation types
         self.model_names = {
@@ -44,7 +32,22 @@ class MLModelService:
         
         # Path to movies catalog (required for HybridRecommender)
         self.movies_catalog_path = os.path.join(settings.BASE_DIR, "app", "data", "movies.csv")
-    
+    def init_credentials(self):
+        """Initialize MLflow tracking credentials from settings"""
+        self.username = settings.MLFLOW_TRACKING_USERNAME
+        self.password = settings.MLFLOW_TRACKING_PASSWORD
+        logger.info("Initializing MLflow tracking credentials...")
+        
+        if self.username and self.password:
+            os.environ["MLFLOW_TRACKING_USERNAME"] = self.username
+            os.environ["MLFLOW_TRACKING_PASSWORD"] = self.password
+            mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
+            logger.info(f"MLflow tracking credentials loaded. Username: {self.username}")
+            
+        else:
+            logger.warning("MLflow tracking credentials are not set.")
+            logger.warning("If MLflow requires authentication, model loading will fail.")
+            
     def load_model(self, model_type: str, model_name: str = None, version: str = "production"):
         """
         Load a specific model from MLflow Model Registry
@@ -54,6 +57,15 @@ class MLModelService:
             model_name: Name of the registered model (uses default if None)
             version: Model version - "latest", version number, or stage name like "Production"
         """
+        print("user", self.username,"psw", self.password)
+        if(self.username is None or self.password is None):
+            logger.info("MLflow tracking credentials not initialized. Initializing now...")
+            self.init_credentials()
+            
+        if(self.username is None or self.password is None):
+            raise ValueError("MLflow tracking credentials are not set. Cannot load model.")
+        
+        
         # Use default model name if not provided
         if model_name is None:
             model_name = self.model_names.get(model_type)
@@ -63,7 +75,7 @@ class MLModelService:
         try:
             # Construct model URI
             if version == "production":
-                model_uri = f"models:/{model_name}/production"
+                model_uri = f"models:/{model_name}@production"
             elif version.isdigit():
                 model_uri = f"models:/{model_name}/{version}"
             else:

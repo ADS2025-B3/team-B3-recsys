@@ -59,9 +59,9 @@ async def startup_event():
         
         for model_type, result in results.items():
             if result == "success":
-                logger.info(f"  ✓ {model_type}: loaded")
+                logger.info(f"  v {model_type}: loaded")
             else:
-                logger.warning(f"  ✗ {model_type}: {result}")
+                logger.warning(f"  x {model_type}: {result}")
                 
     except Exception as e:
         logger.warning(f"Error during model loading: {e}")
