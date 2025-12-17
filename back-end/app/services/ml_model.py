@@ -75,7 +75,7 @@ class MLModelService:
         try:
             # Construct model URI
             if version == "production":
-                model_uri = f"models:/{model_name}@production"
+                model_uri = f"models:/{model_name}/latest"
             elif version.isdigit():
                 model_uri = f"models:/{model_name}/{version}"
             else:
